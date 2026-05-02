@@ -1,0 +1,32 @@
+spring:
+  application:
+    name: state-aggregation-service
+  kafka:
+    bootstrap-servers: localhost:9092
+    consumer:
+      group-id: state-aggregation
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        spring.json.trusted.packages: ru.leti.vkr.*
+  datasource:
+    url: jdbc:postgresql://localhost:5432/iot_monitoring
+    username: vkr
+    password: vkr_secret
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    open-in-view: false
+  flyway:
+    enabled: true
+    baseline-on-migrate: true
+
+server:
+  port: ${SERVER_PORT:8082}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,prometheus

@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: iot-simulator
+  main:
+    web-application-type: none
+
+simulator:
+  target-url: http://localhost:8081/events
+  events-per-second: 50
+  rooms:
+    - A101
+    - A102
+    - B201
+    - B202

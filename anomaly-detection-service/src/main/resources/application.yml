@@ -1,0 +1,32 @@
+spring:
+  application:
+    name: anomaly-detection-service
+  kafka:
+    bootstrap-servers: localhost:9092
+    consumer:
+      group-id: anomaly-detection
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        spring.json.trusted.packages: ru.leti.vkr.*
+  datasource:
+    url: jdbc:postgresql://localhost:5432/iot_monitoring
+    username: vkr
+    password: vkr_secret
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    open-in-view: false
+
+server:
+  port: ${SERVER_PORT:8083}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,prometheus
+
+anomaly:
+  rules-config: classpath:/anomaly-rules.yml
