@@ -1,0 +1,30 @@
+rules:
+  - name: high_temperature
+    sensor_type: temperature
+    condition: GREATER_THAN
+    threshold: 35.0
+    description: "Temperature exceeds 35°C"
+
+  - name: low_temperature
+    sensor_type: temperature
+    condition: LESS_THAN
+    threshold: 5.0
+    description: "Temperature below 5°C"
+
+  - name: high_humidity
+    sensor_type: humidity
+    condition: GREATER_THAN
+    threshold: 90.0
+    description: "Humidity exceeds 90%"
+
+  - name: high_co2
+    sensor_type: co2
+    condition: GREATER_THAN
+    threshold: 1500.0
+    description: "CO2 exceeds 1500 ppm"
+
+  - name: smoke_detected
+    sensor_type: smoke
+    condition: GREATER_THAN
+    threshold: 0.5
+    description: "Smoke level above threshold"
