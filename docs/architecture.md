@@ -40,41 +40,14 @@ Partitioning key: `room_id` — guarantees ordered processing per room.
 
 ## PostgreSQL Schema
 
-```sql
--- room_states: latest aggregated state per room (upsert on each event)
-CREATE TABLE room_states (
-    room_id       VARCHAR(64) PRIMARY KEY,
-    temperature   DOUBLE PRECISION,
-    humidity      DOUBLE PRECISION,
-    co2           DOUBLE PRECISION,
-    smoke         DOUBLE PRECISION,
-    motion        BOOLEAN,
-    illuminance   DOUBLE PRECISION,
-    updated_at    TIMESTAMPTZ NOT NULL
-);
+Schema is owned by `state-aggregation-service` and applied via Flyway on its startup
+(`state-aggregation-service/src/main/resources/db/migration/V1__init_schema.sql`).
+Other services share the same database read-only.
 
--- sensor_events: full event log for history queries and replay
-CREATE TABLE sensor_events (
-    id          BIGSERIAL PRIMARY KEY,
-    room_id     VARCHAR(64) NOT NULL,
-    sensor_type VARCHAR(32) NOT NULL,
-    value       DOUBLE PRECISION NOT NULL,
-    recorded_at TIMESTAMPTZ NOT NULL
-);
-CREATE INDEX idx_sensor_events_room_time ON sensor_events (room_id, recorded_at);
-
--- alerts: threshold violations
-CREATE TABLE alerts (
-    id          BIGSERIAL PRIMARY KEY,
-    room_id     VARCHAR(64) NOT NULL,
-    sensor_type VARCHAR(32) NOT NULL,
-    value       DOUBLE PRECISION NOT NULL,
-    rule_name   VARCHAR(128) NOT NULL,
-    triggered_at TIMESTAMPTZ NOT NULL,
-    resolved_at  TIMESTAMPTZ
-);
-CREATE INDEX idx_alerts_room_active ON alerts (room_id, resolved_at);
-```
+Tables:
+- `room_states (room_id PK, temperature, humidity, co2, smoke, motion, illuminance, updated_at)` — latest aggregated state per room (upserted)
+- `sensor_events (id, room_id, sensor_type, value, recorded_at)` — full event log for history; index on `(room_id, recorded_at)`
+- `alerts (id, room_id, sensor_type, value, rule_name, triggered_at, resolved_at)` — threshold violations; index on `(room_id, resolved_at)`
 
 ## Service Responsibilities
 

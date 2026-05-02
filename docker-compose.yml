@@ -1,5 +1,3 @@
-version: "3.9"
-
 services:
 
   # ── Infrastructure ────────────────────────────────────────────────────────
@@ -8,22 +6,27 @@ services:
     image: confluentinc/cp-kafka:7.6.0
     hostname: kafka
     ports:
-      - "9092:9092"
+      - "9092:9092"   # PLAINTEXT_HOST — for clients running on the host (IDE, tests)
+      - "29092:29092" # PLAINTEXT      — internal Docker network listener
     environment:
       KAFKA_NODE_ID: 1
       KAFKA_PROCESS_ROLES: broker,controller
-      KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092,CONTROLLER://0.0.0.0:9093
-      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
-      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,CONTROLLER:PLAINTEXT
+      KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:29092,CONTROLLER://0.0.0.0:9093,PLAINTEXT_HOST://0.0.0.0:9092
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:29092,PLAINTEXT_HOST://localhost:9092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
       KAFKA_CONTROLLER_QUORUM_VOTERS: 1@kafka:9093
       KAFKA_CONTROLLER_LISTENER_NAMES: CONTROLLER
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+      KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
       KAFKA_LOG_DIRS: /var/lib/kafka/data
-      CLUSTER_ID: "MkU3OEVBNTcwNTJENDM2Qg"
+      CLUSTER_ID: MkU3OEVBNTcwNTJENDM2Qg
     volumes:
       - kafka-data:/var/lib/kafka/data
     healthcheck:
-      test: ["CMD", "kafka-broker-api-versions", "--bootstrap-server", "localhost:9092"]
+      test: ["CMD", "kafka-broker-api-versions", "--bootstrap-server", "localhost:29092"]
       interval: 10s
       retries: 10
 
@@ -33,12 +36,13 @@ services:
       kafka:
         condition: service_healthy
     entrypoint: ["/bin/sh", "-c"]
-    command: |
-      "
-      kafka-topics --bootstrap-server kafka:9092 --create --if-not-exists --topic sensor-raw-events --partitions 4 --replication-factor 1
-      kafka-topics --bootstrap-server kafka:9092 --create --if-not-exists --topic room-state-events --partitions 4 --replication-factor 1
-      kafka-topics --bootstrap-server kafka:9092 --create --if-not-exists --topic alert-events      --partitions 4 --replication-factor 1
-      "
+    command:
+      - |
+        set -e
+        kafka-topics --bootstrap-server kafka:29092 --create --if-not-exists --topic sensor-raw-events --partitions 4 --replication-factor 1
+        kafka-topics --bootstrap-server kafka:29092 --create --if-not-exists --topic room-state-events --partitions 4 --replication-factor 1
+        kafka-topics --bootstrap-server kafka:29092 --create --if-not-exists --topic alert-events      --partitions 4 --replication-factor 1
+    restart: "no"
 
   postgres:
     image: postgres:16-alpine
@@ -64,50 +68,63 @@ services:
       GF_USERS_ALLOW_SIGN_UP: "false"
     volumes:
       - grafana-data:/var/lib/grafana
-      - ./grafana/provisioning:/etc/grafana/provisioning
     depends_on:
       - postgres
 
   # ── Application services ──────────────────────────────────────────────────
 
   event-ingestion:
-    build: ./event-ingestion-service
+    build:
+      context: .
+      dockerfile: event-ingestion-service/Dockerfile
     ports:
       - "8081:8080"
     environment:
-      SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka:9092
+      SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka:29092
     depends_on:
       kafka:
         condition: service_healthy
+      kafka-init:
+        condition: service_completed_successfully
 
   state-aggregation:
-    build: ./state-aggregation-service
+    build:
+      context: .
+      dockerfile: state-aggregation-service/Dockerfile
     environment:
-      SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka:9092
+      SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka:29092
       SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/iot_monitoring
       SPRING_DATASOURCE_USERNAME: vkr
       SPRING_DATASOURCE_PASSWORD: vkr_secret
     depends_on:
       kafka:
         condition: service_healthy
+      kafka-init:
+        condition: service_completed_successfully
       postgres:
         condition: service_healthy
 
   anomaly-detection:
-    build: ./anomaly-detection-service
+    build:
+      context: .
+      dockerfile: anomaly-detection-service/Dockerfile
     environment:
-      SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka:9092
+      SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka:29092
       SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/iot_monitoring
       SPRING_DATASOURCE_USERNAME: vkr
       SPRING_DATASOURCE_PASSWORD: vkr_secret
     depends_on:
       kafka:
         condition: service_healthy
+      kafka-init:
+        condition: service_completed_successfully
       postgres:
         condition: service_healthy
 
   query-service:
-    build: ./query-service
+    build:
+      context: .
+      dockerfile: query-service/Dockerfile
     ports:
       - "8080:8080"
     environment:
@@ -119,7 +136,9 @@ services:
         condition: service_healthy
 
   iot-simulator:
-    build: ./iot-simulator
+    build:
+      context: .
+      dockerfile: iot-simulator/Dockerfile
     environment:
       SIMULATOR_TARGET_URL: http://event-ingestion:8080/events
       SIMULATOR_EVENTS_PER_SECOND: "50"

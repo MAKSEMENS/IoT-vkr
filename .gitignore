@@ -36,3 +36,9 @@ build/
 
 ### Mac OS ###
 .DS_Store
+
+### MS Office / LibreOffice lock files ###
+~$*
+
+### Claude Code local state ###
+.claude/
