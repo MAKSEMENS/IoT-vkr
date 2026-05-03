@@ -10,6 +10,12 @@ spring:
       value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
       properties:
         spring.json.trusted.packages: ru.leti.vkr.*
+        spring.json.value.default.type: ru.leti.vkr.common.SensorEvent
+        spring.json.use.type.headers: false
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      acks: all
   datasource:
     url: jdbc:postgresql://localhost:5432/iot_monitoring
     username: vkr
