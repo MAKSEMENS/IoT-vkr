@@ -13,6 +13,7 @@ class SensorEventConsumer(
     private val producer: RoomStateProducer
 ) {
     private val log = LoggerFactory.getLogger(javaClass)
+    private val counter = java.util.concurrent.atomic.AtomicLong()
 
     @KafkaListener(
         topics = [KafkaTopics.SENSOR_RAW_EVENTS],
@@ -24,5 +25,7 @@ class SensorEventConsumer(
             return
         }
         producer.publish(newState)
+        val n = counter.incrementAndGet()
+        if (n % 100L == 0L) log.info("Aggregated {} events; last room={} version={}", n, newState.roomId, newState.version)
     }
 }

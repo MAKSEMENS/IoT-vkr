@@ -1,5 +1,6 @@
 package ru.leti.vkr.anomaly.kafka
 
+import org.slf4j.LoggerFactory
 import org.springframework.kafka.annotation.KafkaListener
 import org.springframework.stereotype.Component
 import org.springframework.transaction.annotation.Transactional
@@ -16,6 +17,8 @@ class SensorEventConsumer(
     private val alerts: AlertRepository,
     private val producer: AlertProducer
 ) {
+    private val log = LoggerFactory.getLogger(javaClass)
+
     @KafkaListener(
         topics = [KafkaTopics.SENSOR_RAW_EVENTS],
         groupId = "\${spring.kafka.consumer.group-id}"
@@ -25,6 +28,10 @@ class SensorEventConsumer(
         ruleEngine.evaluate(event).forEach { alert ->
             alerts.save(alert.toEntity())
             producer.publish(alert)
+            log.info(
+                "ALERT [{}] room={} sensor={} value={} rule={}",
+                alert.severity, alert.roomId, alert.sensorType, alert.triggeringValue, alert.ruleName
+            )
         }
     }
 }
