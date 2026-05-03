@@ -1,18 +1,18 @@
-# System Architecture
+# Архитектура системы
 
-## Overview
+## Обзор
 
-Distributed asynchronous IoT event processing system for room monitoring.
-Four microservices communicate via Apache Kafka; state is persisted in PostgreSQL.
+Распределённая асинхронная система обработки IoT-событий для мониторинга помещений.
+Четыре микросервиса взаимодействуют через Apache Kafka; состояние сохраняется в PostgreSQL.
 
 ```
-IoT Simulator / Gateway
+IoT-симулятор / шлюз
         │ HTTP POST /events
         ▼
 ┌─────────────────────────┐
-│  event-ingestion-service │  validates schema, publishes to Kafka
+│  event-ingestion-service │  валидирует схему, публикует в Kafka
 └────────────┬────────────┘
-             │ sensor-raw-events (partitioned by room_id)
+             │ sensor-raw-events (партиционирование по room_id)
       ┌──────┴──────┐
       ▼             ▼
 ┌──────────┐  ┌───────────┐
@@ -28,65 +28,65 @@ IoT Simulator / Gateway
      └─────────────┘
 ```
 
-## Kafka Topics
+## Топики Kafka
 
-| Topic               | Producer           | Consumers                                | Key       |
-|---------------------|--------------------|------------------------------------------|-----------|
-| sensor-raw-events   | ingestion          | state-aggregation, anomaly-detection     | room_id   |
-| room-state-events   | state-aggregation  | (future consumers, Grafana streaming)    | room_id   |
-| alert-events        | anomaly-detection  | (future notification service)            | room_id   |
+| Топик               | Producer           | Consumers                                  | Ключ      |
+|---------------------|--------------------|--------------------------------------------|-----------|
+| sensor-raw-events   | ingestion          | state-aggregation, anomaly-detection       | room_id   |
+| room-state-events   | state-aggregation  | будущие потребители, Grafana streaming     | room_id   |
+| alert-events        | anomaly-detection  | будущий сервис уведомлений                 | room_id   |
 
-Partition key `room_id` guarantees ordered per-room processing.
-Producers use `acks=all` and idempotent mode for at-least-once delivery without duplicates from retries.
+Партиционирование по `room_id` гарантирует упорядоченную обработку событий внутри одного помещения.
+Producer-ы используют `acks=all` и идемпотентный режим, что обеспечивает at-least-once доставку без дубликатов от ретраев.
 
-## PostgreSQL Schema
+## Схема PostgreSQL
 
-Schema is owned by `state-aggregation-service` and applied via Flyway on startup
+Схема принадлежит `state-aggregation-service` и накатывается через Flyway при старте
 (`state-aggregation-service/src/main/resources/db/migration/V1__init_schema.sql`).
-Other services share the same database; `query-service` reads only.
+Остальные сервисы используют ту же БД; `query-service` — только на чтение.
 
-Tables:
-- `room_states (room_id PK, temperature, humidity, co2, smoke, motion, light, updated_at, version)` — latest aggregated state per room; `version` is JPA optimistic-lock counter.
-- `sensor_events (id PK, event_id UNIQUE, room_id, sensor_id, sensor_type, value, recorded_at)` — full event log; `event_id` makes inserts idempotent; index on `(room_id, recorded_at)`.
-- `alerts (id PK, alert_id UNIQUE, room_id, sensor_type, rule_name, severity, message, triggering_value, triggered_at, resolved_at)` — threshold violations; index on `(room_id, resolved_at)`.
+Таблицы:
+- `room_states (room_id PK, temperature, humidity, co2, smoke, motion, light, updated_at, version)` — последнее агрегированное состояние помещения; `version` — счётчик оптимистичной блокировки JPA.
+- `sensor_events (id PK, event_id UNIQUE, room_id, sensor_id, sensor_type, value, recorded_at)` — полный лог событий; `event_id` обеспечивает идемпотентность вставок; индекс `(room_id, recorded_at)`.
+- `alerts (id PK, alert_id UNIQUE, room_id, sensor_type, rule_name, severity, message, triggering_value, triggered_at, resolved_at)` — нарушения порогов; индекс `(room_id, resolved_at)`.
 
-## Service Responsibilities
+## Зоны ответственности сервисов
 
 ### event-ingestion-service
-- Single entry point for sensor data
-- Validates JSON schema: required fields, sensor_type enum, value present, timestamp parseable (server fills `Instant.now()` if absent)
-- Publishes valid events to `sensor-raw-events`; rejects invalid with 400
-- Stateless, horizontally scalable
+- Единственная точка входа для данных датчиков
+- Валидирует JSON-схему: обязательные поля, enum `sensor_type`, наличие `value`, парсинг `timestamp` (если поле отсутствует — сервер подставляет `Instant.now()`)
+- Валидные события публикует в `sensor-raw-events`; невалидные — отказ HTTP 400
+- Stateless, масштабируется горизонтально
 
 ### state-aggregation-service
 - Kafka consumer group `state-aggregation`
-- Idempotency: `existsByEventId` before insert into `sensor_events`
-- Applies Event Sourcing: appends to `sensor_events` log, upserts `room_states` (latest reading per sensor_type)
-- Publishes updated `RoomState` to `room-state-events`
-- Replay: full state can be rebuilt by truncating `room_states` and resetting consumer offset to earliest
-- Partition assignment ensures single writer per `room_id` — no write conflicts
+- Идемпотентность: `existsByEventId` перед вставкой в `sensor_events`
+- Применяет Event Sourcing: дописывает событие в лог `sensor_events`, обновляет `room_states` (последнее показание по каждому `sensor_type`)
+- Публикует свежий `RoomState` в `room-state-events`
+- Replay: полное состояние можно пересчитать, опустошив `room_states` и сбросив offset consumer-а на `earliest`
+- Партиционирование гарантирует одного писателя на `room_id` — конфликтов записи нет
 
 ### anomaly-detection-service
-- Kafka consumer group `anomaly-detection`, reads `sensor-raw-events` independently of state-aggregation
-- Loads threshold rules from `anomaly-detection-service/src/main/resources/anomaly-rules.yml` at startup
-- For each event evaluates all matching rules; on match inserts into `alerts` and publishes to `alert-events`
-- Stateless, horizontally scalable
+- Kafka consumer group `anomaly-detection`, читает `sensor-raw-events` независимо от state-aggregation
+- При старте загружает пороговые правила из `anomaly-detection-service/src/main/resources/anomaly-rules.yml`
+- На каждое событие прогоняет совпадающие по типу датчика правила; при срабатывании вставляет запись в `alerts` и публикует в `alert-events`
+- Stateless, масштабируется горизонтально
 
 ### query-service
-- Stateless REST API, reads only from PostgreSQL
-- `GET /rooms` — current state of all rooms
-- `GET /rooms/{id}` — current state of one room
-- `GET /rooms/{id}/history?from=&to=&limit=` — sensor event history for a time range (ISO-8601 timestamps)
-- `GET /alerts?roomId=&active=true&limit=` — alerts list with optional filtering
+- Stateless REST API, читает только из PostgreSQL
+- `GET /rooms` — текущее состояние всех помещений
+- `GET /rooms/{id}` — состояние одного помещения
+- `GET /rooms/{id}/history?from=&to=&limit=` — история событий за диапазон (ISO-8601)
+- `GET /alerts?roomId=&active=true&limit=` — список алертов с опциональной фильтрацией
 
 ### iot-simulator
-- Standalone Kotlin/Spring Boot app, not deployed in production
-- Generates a configurable stream of realistic sensor events
-- POSTs them to event-ingestion-service over HTTP
+- Самостоятельное Kotlin/Spring Boot приложение, в продакшене не разворачивается
+- Генерирует настраиваемый поток правдоподобных событий датчиков
+- Отправляет POST в event-ingestion-service по HTTP
 
-## Scalability Notes
+## Замечания о масштабируемости
 
-- All services are stateless except state-aggregation (stateful via partition assignment to `room_id`).
-- Replay: reset `state-aggregation` consumer offset to earliest → it rebuilds `room_states` from the full Kafka log.
-- Consumer groups allow independent horizontal scaling of state-aggregation and anomaly-detection.
-- `query-service` and `event-ingestion` are pure stateless and scale by replicas behind a load balancer.
+- Все сервисы stateless, кроме state-aggregation (его «состояние» — назначение партиций по `room_id`).
+- Replay: сброс offset consumer-а `state-aggregation` на `earliest` → пересчёт `room_states` из полного лога Kafka.
+- Consumer groups позволяют независимо масштабировать state-aggregation и anomaly-detection.
+- `query-service` и `event-ingestion` — чисто stateless и масштабируются репликами за балансировщиком.

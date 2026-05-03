@@ -1,27 +1,27 @@
-# ADR-003: Service Decomposition
+# ADR-003: Декомпозиция на сервисы
 
-**Status:** Accepted  
-**Date:** 2026-05-03
+**Статус:** Принято
+**Дата:** 2026-05-03
 
-## Decision
+## Решение
 
-Four services: event-ingestion, state-aggregation, anomaly-detection, query-service.
+Четыре сервиса: event-ingestion, state-aggregation, anomaly-detection, query-service.
 
-## Rationale
+## Обоснование
 
-Each service has a single, independent scaling axis:
+У каждого сервиса своя ось масштабирования и свой жизненный цикл изменений:
 
-| Service | Scaling trigger | Isolation benefit |
-|---|---|---|
-| event-ingestion | Inbound HTTP request rate | Can scale without touching consumers |
-| state-aggregation | Number of rooms / event rate | Stateful; partition-bound scaling |
-| anomaly-detection | Rule evaluation throughput | Can change rules/logic independently |
-| query-service | Read request rate | Stateless; scales freely |
+| Сервис             | Триггер масштабирования            | Эффект изоляции                                       |
+|--------------------|------------------------------------|-------------------------------------------------------|
+| event-ingestion    | Частота входящих HTTP-запросов     | Масштабируется без касания consumer-ов                |
+| state-aggregation  | Число помещений / темп событий     | Stateful; масштабирование привязано к партициям       |
+| anomaly-detection  | Пропускная способность правил      | Правила/логика меняются независимо                    |
+| query-service      | Частота read-запросов              | Stateless; масштабируется свободно                    |
 
-Splitting ingestion from aggregation means the HTTP entry point never blocks on state computation. Splitting anomaly detection from aggregation lets both consume the same topic independently — a new detection algorithm can be deployed without touching state logic.
+Разделение ingestion и aggregation гарантирует, что HTTP-точка входа не блокируется на вычислении состояния. Разделение anomaly-detection и aggregation позволяет обоим читать один топик независимо — новый алгоритм детекции можно выкатить, не трогая логику агрегации.
 
-## Alternatives Rejected
+## Отвергнутые альтернативы
 
-**Monolith:** Eliminates independent scaling and couples unrelated change cycles (HTTP validation changes force redeployment of aggregation logic).
+**Монолит.** Лишает независимого масштабирования и связывает несвязанные циклы изменений (правка валидации HTTP вынуждает редеплоить логику агрегации).
 
-**Ingestion + Aggregation merged:** Tempting for simplicity, but violates single-responsibility: the ingestion path must remain low-latency while aggregation may be compute-heavy.
+**Слияние ingestion + aggregation.** Соблазнительно ради простоты, но нарушает single-responsibility: путь приёма должен оставаться low-latency, а агрегация может быть тяжёлой по CPU.

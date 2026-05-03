@@ -1,24 +1,24 @@
-# ADR-002: Event Sourcing for Room State
+# ADR-002: Event Sourcing для состояния помещения
 
-**Status:** Accepted  
-**Date:** 2026-05-03
+**Статус:** Принято
+**Дата:** 2026-05-03
 
-## Decision
+## Решение
 
-Room state is not stored as a mutable record updated in-place. Instead, the full event log in Kafka (`sensor-raw-events`) is the source of truth. The current state is derived by applying events sequentially.
+Состояние помещения не хранится как изменяемая запись, обновляемая «на месте». Источником истины является полный лог событий в Kafka (`sensor-raw-events`); текущее состояние получается последовательным применением событий.
 
-## Rationale
+## Обоснование
 
-1. **Replay:** Resetting consumer offset to `earliest` rebuilds any historical state without a separate backup mechanism. Required by the assignment.
-2. **Fault recovery:** If `state-aggregation-service` crashes, it resumes from last committed offset; no state is lost.
-3. **Auditability:** The complete history of every sensor reading is preserved in Kafka (configurable retention) and in the `sensor_events` table.
-4. **No write conflicts:** Partition assignment by `room_id` guarantees a single consumer processes each room's events in order.
+1. **Replay.** Сброс consumer offset на `earliest` пересчитывает любое историческое состояние без отдельного механизма резервного копирования. Требование задания.
+2. **Восстановление после сбоя.** Если `state-aggregation-service` падает, он продолжает с последнего закоммиченного offset; данные не теряются.
+3. **Аудитируемость.** Полная история всех показаний хранится в Kafka (с настраиваемым retention) и в таблице `sensor_events`.
+4. **Отсутствие конфликтов записи.** Назначение партиций по `room_id` гарантирует, что события одного помещения обрабатывает ровно один consumer в порядке поступления.
 
-## Trade-offs
+## Компромиссы
 
-- Cold start (full replay from offset 0) takes time proportional to log size. Mitigated by Kafka log compaction and periodic snapshots to `room_states`.
-- State aggregation logic must be deterministic and idempotent.
+- Холодный старт (полный replay с offset 0) занимает время, пропорциональное размеру лога. Смягчается log compaction Kafka и периодическими снимками в `room_states`.
+- Логика агрегации должна быть детерминирована и идемпотентна.
 
-## Implementation
+## Реализация
 
-`state-aggregation-service` maintains an in-memory `Map<roomId, RoomState>` updated per event, then upserts to `room_states`. On restart it reads the last committed offset and continues from there (not a full replay in normal operation; full replay is an explicit admin operation).
+`state-aggregation-service` дописывает каждое событие в `sensor_events` (идемпотентно по `event_id`), обновляет соответствующее поле в `room_states` (последнее значение для каждого типа датчика) и публикует обновление в `room-state-events`. После рестарта сервис продолжает с последнего закоммиченного offset; полный replay — отдельная административная операция (truncate `room_states` + сброс offset на `earliest`).

@@ -1,29 +1,29 @@
-# ADR-001: Technology Stack
+# ADR-001: Технологический стек
 
-**Status:** Accepted  
-**Date:** 2026-05-03
+**Статус:** Принято
+**Дата:** 2026-05-03
 
-## Decision
+## Решение
 
 Kotlin (JVM 17) + Spring Boot 3.x + Apache Kafka 3.x + PostgreSQL + Docker Compose.
 
-## Rationale
+## Обоснование
 
-**Kotlin:** Concise JVM language with null-safety and coroutine support; natural fit for Spring Boot ecosystem; stated in the assignment.
+**Kotlin.** Лаконичный JVM-язык с null-safety и поддержкой корутин; естественно встраивается в экосистему Spring Boot; зафиксирован в задании на ВКР.
 
-**Apache Kafka:** Persistent, replayable event log with ordered delivery per partition. Enables Event Sourcing replay, at-least-once guarantee, and independent consumer group scaling — not achievable with a simple message queue (RabbitMQ) or synchronous REST calls.
+**Apache Kafka.** Персистентный воспроизводимый лог событий с упорядоченной доставкой внутри партиции. Обеспечивает Event Sourcing replay, гарантию at-least-once и независимое масштабирование consumer groups — что недостижимо для простой очереди (RabbitMQ) или синхронных REST-вызовов.
 
-**PostgreSQL:** Well-known relational DBMS. Sufficient for aggregated state and alert storage; supports range queries needed for history API.
+**PostgreSQL.** Хорошо известная реляционная СУБД. Покрывает потребности в хранении агрегированного состояния и алертов; поддерживает диапазонные запросы, нужные для history API.
 
-**Spring Boot 3.x:** Mature framework with first-class Kafka (`spring-kafka`), JPA, and REST support. Reduces boilerplate while remaining transparent.
+**Spring Boot 3.x.** Зрелый фреймворк с первоклассной поддержкой Kafka (`spring-kafka`), JPA и REST. Сокращает шаблонный код и при этом не скрывает поведение.
 
-**Docker Compose:** Reproducible local environment for all infrastructure components. Simpler than Kubernetes for a single-node dev/demo setup.
+**Docker Compose.** Воспроизводимое локальное окружение со всеми инфраструктурными компонентами. Проще, чем Kubernetes для одно-нодового стенда «разработка/демо».
 
-## Alternatives Rejected
+## Отвергнутые альтернативы
 
-| Alternative | Reason rejected |
-|---|---|
-| Java | More verbose, no null-safety; Kotlin is a direct upgrade with same ecosystem |
-| RabbitMQ | No built-in log retention, no replay capability |
-| MongoDB | No benefit over PostgreSQL for this schema; adds operational complexity |
-| Kubernetes | Over-engineered for a single-node academic prototype |
+| Альтернатива | Причина отказа                                                                       |
+|--------------|--------------------------------------------------------------------------------------|
+| Java         | Многословнее, нет null-safety; Kotlin — прямой апгрейд той же экосистемы             |
+| RabbitMQ     | Нет встроенного retention лога и replay                                              |
+| MongoDB      | Нет преимуществ перед PostgreSQL для такой схемы; добавляет операционную сложность   |
+| Kubernetes   | Избыточно для одно-нодового учебного прототипа                                       |
