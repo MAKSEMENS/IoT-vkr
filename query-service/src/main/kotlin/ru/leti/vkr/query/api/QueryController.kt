@@ -1,6 +1,7 @@
 package ru.leti.vkr.query.api
 
 import org.springframework.data.domain.PageRequest
+import org.springframework.format.annotation.DateTimeFormat
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
@@ -19,38 +20,47 @@ import java.time.Instant
 import java.util.UUID
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping
 class QueryController(
     private val rooms: RoomStateRepository,
     private val events: SensorEventQueryRepository,
     private val alerts: AlertQueryRepository
 ) {
-    @GetMapping("/rooms/{roomId}/state")
+    @GetMapping("/rooms")
+    fun listRooms(): List<RoomStateResponse> =
+        rooms.findAll().map { it.toResponse() }
+
+    @GetMapping("/rooms/{roomId}")
     fun roomState(@PathVariable roomId: String): ResponseEntity<RoomStateResponse> =
         rooms.findById(roomId)
             .map { ResponseEntity.ok(it.toResponse()) }
             .orElse(ResponseEntity.notFound().build())
 
-    @GetMapping("/rooms/{roomId}/events")
-    fun roomEvents(
+    @GetMapping("/rooms/{roomId}/history")
+    fun roomHistory(
         @PathVariable roomId: String,
-        @RequestParam(defaultValue = "100") limit: Int
+        @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) from: Instant,
+        @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) to: Instant,
+        @RequestParam(defaultValue = "1000") limit: Int
     ): List<SensorEventResponse> =
-        events.findByRoomIdOrderByRecordedAtDesc(roomId, PageRequest.of(0, limit.coerceIn(1, 1000)))
-            .map { it.toResponse() }
+        events.findByRoomIdAndRecordedAtBetweenOrderByRecordedAtAsc(
+            roomId, from, to, PageRequest.of(0, limit.coerceIn(1, 10_000))
+        ).map { it.toResponse() }
 
     @GetMapping("/alerts")
     fun alertsList(
         @RequestParam(required = false) roomId: String?,
-        @RequestParam(defaultValue = "false") activeOnly: Boolean,
+        @RequestParam(defaultValue = "false") active: Boolean,
         @RequestParam(defaultValue = "100") limit: Int
     ): List<AlertResponse> {
         val page = PageRequest.of(0, limit.coerceIn(1, 1000))
-        return when {
+        val result = when {
+            roomId != null && active -> alerts.findByRoomIdAndResolvedAtIsNullOrderByTriggeredAtDesc(roomId, page)
             roomId != null -> alerts.findByRoomIdOrderByTriggeredAtDesc(roomId, page)
-            activeOnly -> alerts.findByResolvedAtIsNullOrderByTriggeredAtDesc(page)
+            active -> alerts.findByResolvedAtIsNullOrderByTriggeredAtDesc(page)
             else -> alerts.findAll(page).content
-        }.map { it.toResponse() }
+        }
+        return result.map { it.toResponse() }
     }
 }
 
