@@ -91,11 +91,15 @@ services:
     build:
       context: .
       dockerfile: state-aggregation-service/Dockerfile
+    ports:
+      - "8082:8082"
     environment:
       SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka:29092
       SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/iot_monitoring
       SPRING_DATASOURCE_USERNAME: vkr
       SPRING_DATASOURCE_PASSWORD: vkr_secret
+      ADMIN_USER: ${ADMIN_USER:-admin}
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD:-admin}
     depends_on:
       kafka:
         condition: service_healthy

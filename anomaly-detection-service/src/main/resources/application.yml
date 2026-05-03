@@ -16,6 +16,11 @@ spring:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
       acks: all
+      retries: 2147483647
+      properties:
+        enable.idempotence: true
+        delivery.timeout.ms: 120000
+        max.in.flight.requests.per.connection: 5
   datasource:
     url: jdbc:postgresql://localhost:5432/iot_monitoring
     username: vkr

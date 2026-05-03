@@ -1,0 +1,778 @@
+﻿Apache Maven 3.9.9 (8e8579a9e76f7d015ee5ec7bfcdc97d260186937)
+Maven home: C:\Users\zinka\.m2\wrapper\dists\apache-maven-3.9.9\977a63e90f436cd6ade95b4c0e10c20c
+Java version: 22.0.2, vendor: Oracle Corporation, runtime: C:\Users\zinka\.jdks\openjdk-22.0.2
+Default locale: en_US, platform encoding: UTF-8
+OS name: "windows 10", version: "10.0", arch: "amd64", family: "windows"
+21:27:54 [INFO] Error stacktraces are turned on.
+21:27:54 [INFO] Scanning for projects...
+21:27:54 [INFO] ------------------------------------------------------------------------
+21:27:54 [INFO] Reactor Build Order:
+21:27:54 [INFO] 
+21:27:54 [INFO] iot-monitoring                                                     [pom]
+21:27:54 [INFO] common                                                             [jar]
+21:27:54 [INFO] state-aggregation-service                                          [jar]
+21:27:54 [INFO] 
+21:27:54 [INFO] ---------------------< ru.leti.vkr:iot-monitoring >---------------------
+21:27:54 [INFO] Building iot-monitoring 1.0.0                                      [1/3]
+21:27:54 [INFO]   from pom.xml
+21:27:54 [INFO] --------------------------------[ pom ]---------------------------------
+21:27:54 [INFO] 
+21:27:54 [INFO] --- kotlin:1.9.25:compile (compile) @ iot-monitoring ---
+21:27:55 [INFO] No sources to compile
+21:27:55 [INFO] 
+21:27:55 [INFO] --- kotlin:1.9.25:test-compile (test-compile) @ iot-monitoring ---
+21:27:55 [INFO] No sources to compile
+21:27:55 [INFO] 
+21:27:55 [INFO] -------------------------< ru.leti.vkr:common >-------------------------
+21:27:55 [INFO] Building common 1.0.0                                              [2/3]
+21:27:55 [INFO]   from common\pom.xml
+21:27:55 [INFO] --------------------------------[ jar ]---------------------------------
+21:27:55 [INFO] 
+21:27:55 [INFO] --- resources:3.3.1:resources (default-resources) @ common ---
+21:27:55 [INFO] skip non existing resourceDirectory D:\ЛЭТИ\ДИПЛОМ\vkr\common\src\main\resources
+21:27:55 [INFO] 
+21:27:55 [INFO] --- compiler:3.13.0:compile (default-compile) @ common ---
+21:27:55 [INFO] Nothing to compile - all classes are up to date.
+21:27:55 [INFO] 
+21:27:55 [INFO] --- kotlin:1.9.25:compile (compile) @ common ---
+21:27:55 [INFO] Applied plugin: 'spring'
+21:27:55 [INFO] Applied plugin: 'jpa'
+21:27:59 [INFO] 
+21:27:59 [INFO] --- resources:3.3.1:testResources (default-testResources) @ common ---
+21:27:59 [INFO] skip non existing resourceDirectory D:\ЛЭТИ\ДИПЛОМ\vkr\common\src\test\resources
+21:27:59 [INFO] 
+21:27:59 [INFO] --- compiler:3.13.0:testCompile (default-testCompile) @ common ---
+21:27:59 [INFO] No sources to compile
+21:27:59 [INFO] 
+21:27:59 [INFO] --- kotlin:1.9.25:test-compile (test-compile) @ common ---
+21:27:59 [INFO] No sources to compile
+21:27:59 [INFO] 
+21:27:59 [INFO] --- surefire:3.2.5:test (default-test) @ common ---
+21:28:00 [INFO] No tests to run.
+21:28:00 [INFO] 
+21:28:00 [INFO] ---------------< ru.leti.vkr:state-aggregation-service >----------------
+21:28:00 [INFO] Building state-aggregation-service 1.0.0                           [3/3]
+21:28:00 [INFO]   from state-aggregation-service\pom.xml
+21:28:00 [INFO] --------------------------------[ jar ]---------------------------------
+21:28:00 [INFO] 
+21:28:00 [INFO] --- resources:3.3.1:resources (default-resources) @ state-aggregation-service ---
+21:28:00 [INFO] Copying 2 resources from src\main\resources to target\classes
+21:28:00 [INFO] 
+21:28:00 [INFO] --- compiler:3.13.0:compile (default-compile) @ state-aggregation-service ---
+21:28:00 [INFO] Recompiling the module because of changed dependency.
+21:28:00 [INFO] 
+21:28:00 [INFO] --- kotlin:1.9.25:compile (compile) @ state-aggregation-service ---
+21:28:00 [INFO] Applied plugin: 'spring'
+21:28:00 [INFO] Applied plugin: 'jpa'
+21:28:04 [INFO] 
+21:28:04 [INFO] --- resources:3.3.1:testResources (default-testResources) @ state-aggregation-service ---
+21:28:04 [INFO] skip non existing resourceDirectory D:\ЛЭТИ\ДИПЛОМ\vkr\state-aggregation-service\src\test\resources
+21:28:04 [INFO] 
+21:28:04 [INFO] --- compiler:3.13.0:testCompile (default-testCompile) @ state-aggregation-service ---
+21:28:04 [INFO] Recompiling the module because of changed dependency.
+21:28:04 [INFO] 
+21:28:04 [INFO] --- kotlin:1.9.25:test-compile (test-compile) @ state-aggregation-service ---
+21:28:04 [INFO] Applied plugin: 'spring'
+21:28:04 [INFO] Applied plugin: 'jpa'
+21:28:07 [INFO] 
+21:28:07 [INFO] --- surefire:3.2.5:test (default-test) @ state-aggregation-service ---
+21:28:07 [INFO] Surefire report directory: D:\ЛЭТИ\ДИПЛОМ\vkr\state-aggregation-service\target\surefire-reports
+21:28:07 [INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+21:28:07 [INFO] 
+21:28:07 [INFO] -------------------------------------------------------
+21:28:07 [INFO]  T E S T S
+21:28:07 [INFO] -------------------------------------------------------
+21:28:08 [INFO] Running ru.leti.vkr.aggregation.admin.ReplayIntegrationTest
+21:28:08.320 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [ru.leti.vkr.aggregation.admin.ReplayIntegrationTest]: ReplayIntegrationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+21:28:08.482 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration ru.leti.vkr.aggregation.StateAggregationApplication for test class ru.leti.vkr.aggregation.admin.ReplayIntegrationTest
+21:28:08.635 [main] INFO org.testcontainers.images.PullPolicy -- Image pull policy will be performed by: DefaultPullPolicy()
+21:28:08.640 [main] INFO org.testcontainers.utility.ImageNameSubstitutor -- Image name substitution will be performed by: DefaultImageNameSubstitutor (composite of 'ConfigurationFileImageNameSubstitutor' and 'PrefixingImageNameSubstitutor')
+21:28:08.909 [main] INFO org.testcontainers.dockerclient.DockerClientProviderStrategy -- Loaded org.testcontainers.dockerclient.NpipeSocketClientProviderStrategy from ~/.testcontainers.properties, will try it first
+21:28:09.165 [main] INFO org.testcontainers.dockerclient.DockerClientProviderStrategy -- Found Docker environment with local Npipe socket (npipe:////./pipe/docker_engine)
+21:28:09.167 [main] INFO org.testcontainers.DockerClientFactory -- Docker host IP address is localhost
+21:28:09.185 [main] INFO org.testcontainers.DockerClientFactory -- Connected to docker: 
+  Server Version: 27.5.1
+  API Version: 1.47
+  Operating System: Docker Desktop
+  Total Memory: 7912 MB
+21:28:09.475 [main] INFO tc.testcontainers/ryuk:0.6.0 -- Creating container for image: testcontainers/ryuk:0.6.0
+21:28:09.671 [main] INFO org.testcontainers.utility.RegistryAuthLocator -- Credential helper/store (docker-credential-desktop) does not have credentials for https://index.docker.io/v1/
+21:28:11.105 [main] INFO tc.testcontainers/ryuk:0.6.0 -- Container testcontainers/ryuk:0.6.0 is starting: c9a42e7e4c59949ecebe0f528f1fddb4ffe933f3033eeedb05819c5118f10af1
+21:28:13.001 [main] INFO tc.testcontainers/ryuk:0.6.0 -- Container testcontainers/ryuk:0.6.0 started in PT3.5263628S
+21:28:13.014 [main] INFO org.testcontainers.utility.RyukResourceReaper -- Ryuk started - will monitor and terminate Testcontainers containers on JVM exit
+21:28:13.014 [main] INFO org.testcontainers.DockerClientFactory -- Checking the system...
+21:28:13.014 [main] INFO org.testcontainers.DockerClientFactory -- ✔︎ Docker server version should be at least 1.6.0
+21:28:13.015 [main] INFO tc.confluentinc/cp-kafka:7.5.0 -- Creating container for image: confluentinc/cp-kafka:7.5.0
+21:28:14.906 [main] INFO tc.confluentinc/cp-kafka:7.5.0 -- Container confluentinc/cp-kafka:7.5.0 is starting: 5abc00ce227b4d3ca49e7ad6b1b2d87be1c349eea68585c5d6efad9f5bb3870a
+21:28:23.032 [main] INFO tc.confluentinc/cp-kafka:7.5.0 -- Container confluentinc/cp-kafka:7.5.0 started in PT10.0169978S
+21:28:23.033 [main] INFO tc.postgres:16-alpine -- Creating container for image: postgres:16-alpine
+21:28:25.133 [main] INFO tc.postgres:16-alpine -- Container postgres:16-alpine is starting: 7f8bf9bcca48eeb8d5dc6eef758c8070f1d9b6864e0bbe871ed4b673a499f63b
+21:28:29.650 [main] INFO tc.postgres:16-alpine -- Container postgres:16-alpine started in PT6.6163951S
+21:28:29.650 [main] INFO tc.postgres:16-alpine -- Container is started (JDBC URL: jdbc:postgresql://localhost:56959/test?loggerLevel=OFF)
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v3.2.5)
+
+2026-05-03T21:28:30.084Z  INFO 16988 --- [state-aggregation-service] [           main] r.l.v.a.admin.ReplayIntegrationTest      : Starting ReplayIntegrationTest using Java 22.0.2 with PID 16988 (started by zinka in D:\ЛЭТИ\ДИПЛОМ\vkr\state-aggregation-service)
+2026-05-03T21:28:30.085Z  INFO 16988 --- [state-aggregation-service] [           main] r.l.v.a.admin.ReplayIntegrationTest      : No active profile set, falling back to 1 default profile: "default"
+2026-05-03T21:28:31.513Z  INFO 16988 --- [state-aggregation-service] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-05-03T21:28:31.580Z  INFO 16988 --- [state-aggregation-service] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 57 ms. Found 2 JPA repository interfaces.
+2026-05-03T21:28:32.526Z  INFO 16988 --- [state-aggregation-service] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 0 (http)
+2026-05-03T21:28:32.540Z  INFO 16988 --- [state-aggregation-service] [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-05-03T21:28:32.541Z  INFO 16988 --- [state-aggregation-service] [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.20]
+2026-05-03T21:28:32.629Z  INFO 16988 --- [state-aggregation-service] [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-05-03T21:28:32.630Z  INFO 16988 --- [state-aggregation-service] [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2521 ms
+2026-05-03T21:28:32.956Z  INFO 16988 --- [state-aggregation-service] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-05-03T21:28:33.307Z  INFO 16988 --- [state-aggregation-service] [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@2ab39942
+2026-05-03T21:28:33.310Z  INFO 16988 --- [state-aggregation-service] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-05-03T21:28:33.454Z  INFO 16988 --- [state-aggregation-service] [           main] o.f.c.internal.license.VersionPrinter    : Flyway Community Edition 9.22.3 by Redgate
+2026-05-03T21:28:33.454Z  INFO 16988 --- [state-aggregation-service] [           main] o.f.c.internal.license.VersionPrinter    : See release notes here: https://rd.gt/416ObMi
+2026-05-03T21:28:33.454Z  INFO 16988 --- [state-aggregation-service] [           main] o.f.c.internal.license.VersionPrinter    : 
+2026-05-03T21:28:33.485Z  INFO 16988 --- [state-aggregation-service] [           main] org.flywaydb.core.FlywayExecutor         : Database: jdbc:postgresql://localhost:56959/test (PostgreSQL 16.13)
+2026-05-03T21:28:33.528Z  WARN 16988 --- [state-aggregation-service] [           main] o.f.c.internal.database.base.Database    : Flyway upgrade recommended: PostgreSQL 16.13 is newer than this version of Flyway and support has not been tested. The latest supported version of PostgreSQL is 15.
+2026-05-03T21:28:33.568Z  INFO 16988 --- [state-aggregation-service] [           main] o.f.c.i.s.JdbcTableSchemaHistory         : Schema history table "public"."flyway_schema_history" does not exist yet
+2026-05-03T21:28:33.573Z  INFO 16988 --- [state-aggregation-service] [           main] o.f.core.internal.command.DbValidate     : Successfully validated 1 migration (execution time 00:00.030s)
+2026-05-03T21:28:33.592Z  INFO 16988 --- [state-aggregation-service] [           main] o.f.c.i.s.JdbcTableSchemaHistory         : Creating Schema History table "public"."flyway_schema_history" ...
+2026-05-03T21:28:33.641Z  INFO 16988 --- [state-aggregation-service] [           main] o.f.core.internal.command.DbMigrate      : Current version of schema "public": << Empty Schema >>
+2026-05-03T21:28:33.656Z  INFO 16988 --- [state-aggregation-service] [           main] o.f.core.internal.command.DbMigrate      : Migrating schema "public" to version "1 - init schema"
+2026-05-03T21:28:33.719Z  INFO 16988 --- [state-aggregation-service] [           main] o.f.core.internal.command.DbMigrate      : Successfully applied 1 migration to schema "public", now at version v1 (execution time 00:00.027s)
+2026-05-03T21:28:33.869Z  INFO 16988 --- [state-aggregation-service] [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-05-03T21:28:33.943Z  INFO 16988 --- [state-aggregation-service] [           main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.4.4.Final
+2026-05-03T21:28:33.985Z  INFO 16988 --- [state-aggregation-service] [           main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2026-05-03T21:28:34.231Z  INFO 16988 --- [state-aggregation-service] [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-05-03T21:28:35.107Z  INFO 16988 --- [state-aggregation-service] [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-05-03T21:28:35.150Z  INFO 16988 --- [state-aggregation-service] [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-05-03T21:28:36.785Z  INFO 16988 --- [state-aggregation-service] [           main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 2 endpoint(s) beneath base path '/actuator'
+2026-05-03T21:28:36.861Z  INFO 16988 --- [state-aggregation-service] [           main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@37e682da, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@3ace955c, org.springframework.security.web.context.SecurityContextHolderFilter@4518bffd, org.springframework.security.web.header.HeaderWriterFilter@6c3a3d87, org.springframework.web.filter.CorsFilter@4c00c8ce, org.springframework.security.web.authentication.logout.LogoutFilter@7fc2e0b7, org.springframework.security.web.authentication.www.BasicAuthenticationFilter@34672fb, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@490f4b14, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@45e97963, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@7474bc14, org.springframework.security.web.access.ExceptionTranslationFilter@b205e08, org.springframework.security.web.access.intercept.AuthorizationFilter@201ac0ef]
+2026-05-03T21:28:37.509Z  INFO 16988 --- [state-aggregation-service] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 56973 (http) with context path ''
+2026-05-03T21:28:37.553Z  INFO 16988 --- [state-aggregation-service] [           main] o.a.k.clients.consumer.ConsumerConfig    : ConsumerConfig values: 
+	allow.auto.create.topics = true
+	auto.commit.interval.ms = 5000
+	auto.include.jmx.reporter = true
+	auto.offset.reset = earliest
+	bootstrap.servers = [PLAINTEXT://localhost:56957]
+	check.crcs = true
+	client.dns.lookup = use_all_dns_ips
+	client.id = consumer-state-aggregation-1
+	client.rack = 
+	connections.max.idle.ms = 540000
+	default.api.timeout.ms = 60000
+	enable.auto.commit = false
+	exclude.internal.topics = true
+	fetch.max.bytes = 52428800
+	fetch.max.wait.ms = 500
+	fetch.min.bytes = 1
+	group.id = state-aggregation
+	group.instance.id = null
+	heartbeat.interval.ms = 3000
+	interceptor.classes = []
+	internal.leave.group.on.close = true
+	internal.throw.on.fetch.stable.offset.unsupported = false
+	isolation.level = read_uncommitted
+	key.deserializer = class org.apache.kafka.common.serialization.StringDeserializer
+	max.partition.fetch.bytes = 1048576
+	max.poll.interval.ms = 300000
+	max.poll.records = 500
+	metadata.max.age.ms = 300000
+	metric.reporters = []
+	metrics.num.samples = 2
+	metrics.recording.level = INFO
+	metrics.sample.window.ms = 30000
+	partition.assignment.strategy = [class org.apache.kafka.clients.consumer.RangeAssignor, class org.apache.kafka.clients.consumer.CooperativeStickyAssignor]
+	receive.buffer.bytes = 65536
+	reconnect.backoff.max.ms = 1000
+	reconnect.backoff.ms = 50
+	request.timeout.ms = 30000
+	retry.backoff.ms = 100
+	sasl.client.callback.handler.class = null
+	sasl.jaas.config = null
+	sasl.kerberos.kinit.cmd = /usr/bin/kinit
+	sasl.kerberos.min.time.before.relogin = 60000
+	sasl.kerberos.service.name = null
+	sasl.kerberos.ticket.renew.jitter = 0.05
+	sasl.kerberos.ticket.renew.window.factor = 0.8
+	sasl.login.callback.handler.class = null
+	sasl.login.class = null
+	sasl.login.connect.timeout.ms = null
+	sasl.login.read.timeout.ms = null
+	sasl.login.refresh.buffer.seconds = 300
+	sasl.login.refresh.min.period.seconds = 60
+	sasl.login.refresh.window.factor = 0.8
+	sasl.login.refresh.window.jitter = 0.05
+	sasl.login.retry.backoff.max.ms = 10000
+	sasl.login.retry.backoff.ms = 100
+	sasl.mechanism = GSSAPI
+	sasl.oauthbearer.clock.skew.seconds = 30
+	sasl.oauthbearer.expected.audience = null
+	sasl.oauthbearer.expected.issuer = null
+	sasl.oauthbearer.jwks.endpoint.refresh.ms = 3600000
+	sasl.oauthbearer.jwks.endpoint.retry.backoff.max.ms = 10000
+	sasl.oauthbearer.jwks.endpoint.retry.backoff.ms = 100
+	sasl.oauthbearer.jwks.endpoint.url = null
+	sasl.oauthbearer.scope.claim.name = scope
+	sasl.oauthbearer.sub.claim.name = sub
+	sasl.oauthbearer.token.endpoint.url = null
+	security.protocol = PLAINTEXT
+	security.providers = null
+	send.buffer.bytes = 131072
+	session.timeout.ms = 45000
+	socket.connection.setup.timeout.max.ms = 30000
+	socket.connection.setup.timeout.ms = 10000
+	ssl.cipher.suites = null
+	ssl.enabled.protocols = [TLSv1.2, TLSv1.3]
+	ssl.endpoint.identification.algorithm = https
+	ssl.engine.factory.class = null
+	ssl.key.password = null
+	ssl.keymanager.algorithm = SunX509
+	ssl.keystore.certificate.chain = null
+	ssl.keystore.key = null
+	ssl.keystore.location = null
+	ssl.keystore.password = null
+	ssl.keystore.type = JKS
+	ssl.protocol = TLSv1.3
+	ssl.provider = null
+	ssl.secure.random.implementation = null
+	ssl.trustmanager.algorithm = PKIX
+	ssl.truststore.certificates = null
+	ssl.truststore.location = null
+	ssl.truststore.password = null
+	ssl.truststore.type = JKS
+	value.deserializer = class org.springframework.kafka.support.serializer.JsonDeserializer
+
+2026-05-03T21:28:37.895Z  INFO 16988 --- [state-aggregation-service] [           main] o.a.kafka.common.utils.AppInfoParser     : Kafka version: 3.6.2
+2026-05-03T21:28:37.895Z  INFO 16988 --- [state-aggregation-service] [           main] o.a.kafka.common.utils.AppInfoParser     : Kafka commitId: c4deed513057c94e
+2026-05-03T21:28:37.895Z  INFO 16988 --- [state-aggregation-service] [           main] o.a.kafka.common.utils.AppInfoParser     : Kafka startTimeMs: 1777843717893
+2026-05-03T21:28:37.906Z  INFO 16988 --- [state-aggregation-service] [           main] fkaConsumerFactory$ExtendedKafkaConsumer : [Consumer clientId=consumer-state-aggregation-1, groupId=state-aggregation] Subscribed to topic(s): sensor-raw-events
+2026-05-03T21:28:37.938Z  INFO 16988 --- [state-aggregation-service] [           main] r.l.v.a.admin.ReplayIntegrationTest      : Started ReplayIntegrationTest in 8.251 seconds (process running for 30.444)
+.\mvnw.cmd : OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
+At line:1 char:101
++ ... $env:Path"; .\mvnw.cmd -pl state-aggregation-service -am test "-Dtest ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (OpenJDK 64-Bit ...s been appended:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+WARNING: A Java agent has been loaded dynamically (C:\Users\zinka\.m2\repository\net\bytebuddy\byte-buddy-agent\1.14.13\byte-buddy-agent-1.14.13.jar)
+WARNING: If a serviceability tool is in use, please run with -XX:+EnableDynamicAgentLoading to hide this warning
+WARNING: If a serviceability tool is not in use, please run with -Djdk.instrument.traceUsage for more information
+WARNING: Dynamic loading of agents will be disallowed by default in a future release
+2026-05-03T21:28:38.629Z  WARN 16988 --- [state-aggregation-service] [ntainer#0-0-C-1] org.apache.kafka.clients.NetworkClient   : [Consumer clientId=consumer-state-aggregation-1, groupId=state-aggregation] Error while fetching metadata with correlation id 2 : {sensor-raw-events=LEADER_NOT_AVAILABLE}
+2026-05-03T21:28:38.631Z  INFO 16988 --- [state-aggregation-service] [ntainer#0-0-C-1] org.apache.kafka.clients.Metadata        : [Consumer clientId=consumer-state-aggregation-1, groupId=state-aggregation] Cluster ID: E9Np6aTZSSy1kl1vuIgMKA
+2026-05-03T21:28:38.770Z  INFO 16988 --- [state-aggregation-service] [           main] o.a.k.clients.producer.ProducerConfig    : ProducerConfig values: 
+	acks = -1
+	auto.include.jmx.reporter = true
+	batch.size = 16384
+	bootstrap.servers = [PLAINTEXT://localhost:56957]
+	buffer.memory = 33554432
+	client.dns.lookup = use_all_dns_ips
+	client.id = producer-1
+	compression.type = none
+	connections.max.idle.ms = 540000
+	delivery.timeout.ms = 120000
+	enable.idempotence = true
+	interceptor.classes = []
+	key.serializer = class org.apache.kafka.common.serialization.StringSerializer
+	linger.ms = 0
+	max.block.ms = 60000
+	max.in.flight.requests.per.connection = 5
+	max.request.size = 1048576
+	metadata.max.age.ms = 300000
+	metadata.max.idle.ms = 300000
+	metric.reporters = []
+	metrics.num.samples = 2
+	metrics.recording.level = INFO
+	metrics.sample.window.ms = 30000
+	partitioner.adaptive.partitioning.enable = true
+	partitioner.availability.timeout.ms = 0
+	partitioner.class = null
+	partitioner.ignore.keys = false
+	receive.buffer.bytes = 32768
+	reconnect.backoff.max.ms = 1000
+	reconnect.backoff.ms = 50
+	request.timeout.ms = 30000
+	retries = 2147483647
+	retry.backoff.ms = 100
+	sasl.client.callback.handler.class = null
+	sasl.jaas.config = null
+	sasl.kerberos.kinit.cmd = /usr/bin/kinit
+	sasl.kerberos.min.time.before.relogin = 60000
+	sasl.kerberos.service.name = null
+	sasl.kerberos.ticket.renew.jitter = 0.05
+	sasl.kerberos.ticket.renew.window.factor = 0.8
+	sasl.login.callback.handler.class = null
+	sasl.login.class = null
+	sasl.login.connect.timeout.ms = null
+	sasl.login.read.timeout.ms = null
+	sasl.login.refresh.buffer.seconds = 300
+	sasl.login.refresh.min.period.seconds = 60
+	sasl.login.refresh.window.factor = 0.8
+	sasl.login.refresh.window.jitter = 0.05
+	sasl.login.retry.backoff.max.ms = 10000
+	sasl.login.retry.backoff.ms = 100
+	sasl.mechanism = GSSAPI
+	sasl.oauthbearer.clock.skew.seconds = 30
+	sasl.oauthbearer.expected.audience = null
+	sasl.oauthbearer.expected.issuer = null
+	sasl.oauthbearer.jwks.endpoint.refresh.ms = 3600000
+	sasl.oauthbearer.jwks.endpoint.retry.backoff.max.ms = 10000
+	sasl.oauthbearer.jwks.endpoint.retry.backoff.ms = 100
+	sasl.oauthbearer.jwks.endpoint.url = null
+	sasl.oauthbearer.scope.claim.name = scope
+	sasl.oauthbearer.sub.claim.name = sub
+	sasl.oauthbearer.token.endpoint.url = null
+	security.protocol = PLAINTEXT
+	security.providers = null
+	send.buffer.bytes = 131072
+	socket.connection.setup.timeout.max.ms = 30000
+	socket.connection.setup.timeout.ms = 10000
+	ssl.cipher.suites = null
+	ssl.enabled.protocols = [TLSv1.2, TLSv1.3]
+	ssl.endpoint.identification.algorithm = https
+	ssl.engine.factory.class = null
+	ssl.key.password = null
+	ssl.keymanager.algorithm = SunX509
+	ssl.keystore.certificate.chain = null
+	ssl.keystore.key = null
+	ssl.keystore.location = null
+	ssl.keystore.password = null
+	ssl.keystore.type = JKS
+	ssl.protocol = TLSv1.3
+	ssl.provider = null
+	ssl.secure.random.implementation = null
+	ssl.trustmanager.algorithm = PKIX
+	ssl.truststore.certificates = null
+	ssl.truststore.location = null
+	ssl.truststore.password = null
+	ssl.truststore.type = JKS
+	transaction.timeout.ms = 60000
+	transactional.id = null
+	value.serializer = class org.springframework.kafka.support.serializer.JsonSerializer
+
+2026-05-03T21:28:38.787Z  INFO 16988 --- [state-aggregation-service] [           main] o.a.k.clients.producer.KafkaProducer     : [Producer clientId=producer-1] Instantiated an idempotent producer.
+2026-05-03T21:28:38.822Z  INFO 16988 --- [state-aggregation-service] [           main] o.a.kafka.common.utils.AppInfoParser     : Kafka version: 3.6.2
+2026-05-03T21:28:38.822Z  INFO 16988 --- [state-aggregation-service] [           main] o.a.kafka.common.utils.AppInfoParser     : Kafka commitId: c4deed513057c94e
+2026-05-03T21:28:38.822Z  INFO 16988 --- [state-aggregation-service] [           main] o.a.kafka.common.utils.AppInfoParser     : Kafka startTimeMs: 1777843718822
+2026-05-03T21:28:38.854Z  WARN 16988 --- [state-aggregation-service] [ad | producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=producer-1] Error while fetching metadata with correlation id 1 : {sensor-raw-events=UNKNOWN_TOPIC_OR_PARTITION}
+2026-05-03T21:28:38.857Z  INFO 16988 --- [state-aggregation-service] [ad | producer-1] org.apache.kafka.clients.Metadata        : [Producer clientId=producer-1] Cluster ID: E9Np6aTZSSy1kl1vuIgMKA
+2026-05-03T21:28:38.862Z  WARN 16988 --- [state-aggregation-service] [ntainer#0-0-C-1] org.apache.kafka.clients.NetworkClient   : [Consumer clientId=consumer-state-aggregation-1, groupId=state-aggregation] Error while fetching metadata with correlation id 4 : {sensor-raw-events=LEADER_NOT_AVAILABLE}
+2026-05-03T21:28:38.988Z  WARN 16988 --- [state-aggregation-service] [ad | producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=producer-1] Error while fetching metadata with correlation id 4 : {sensor-raw-events=UNKNOWN_TOPIC_OR_PARTITION}
+2026-05-03T21:28:39.009Z  WARN 16988 --- [state-aggregation-service] [ntainer#0-0-C-1] org.apache.kafka.clients.NetworkClient   : [Consumer clientId=consumer-state-aggregation-1, groupId=state-aggregation] Error while fetching metadata with correlation id 6 : {sensor-raw-events=LEADER_NOT_AVAILABLE}
+2026-05-03T21:28:39.126Z  WARN 16988 --- [state-aggregation-service] [ntainer#0-0-C-1] org.apache.kafka.clients.NetworkClient   : [Consumer clientId=consumer-state-aggregation-1, groupId=state-aggregation] Error while fetching metadata with correlation id 8 : {sensor-raw-events=UNKNOWN_TOPIC_OR_PARTITION}
+2026-05-03T21:28:39.198Z  WARN 16988 --- [state-aggregation-service] [ad | producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=producer-1] Error while fetching metadata with correlation id 5 : {sensor-raw-events=LEADER_NOT_AVAILABLE}
+2026-05-03T21:28:39.199Z  INFO 16988 --- [state-aggregation-service] [ad | producer-1] o.a.k.c.p.internals.TransactionManager   : [Producer clientId=producer-1] ProducerId set to 0 with epoch 0
+2026-05-03T21:28:39.238Z  WARN 16988 --- [state-aggregation-service] [ntainer#0-0-C-1] org.apache.kafka.clients.NetworkClient   : [Consumer clientId=consumer-state-aggregation-1, groupId=state-aggregation] Error while fetching metadata with correlation id 10 : {sensor-raw-events=LEADER_NOT_AVAILABLE}
+2026-05-03T21:28:39.303Z  WARN 16988 --- [state-aggregation-service] [ad | producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=producer-1] Error while fetching metadata with correlation id 6 : {sensor-raw-events=LEADER_NOT_AVAILABLE}
+2026-05-03T21:28:39.344Z  WARN 16988 --- [state-aggregation-service] [ntainer#0-0-C-1] org.apache.kafka.clients.NetworkClient   : [Consumer clientId=consumer-state-aggregation-1, groupId=state-aggregation] Error while fetching metadata with correlation id 12 : {sensor-raw-events=LEADER_NOT_AVAILABLE}
+2026-05-03T21:28:39.421Z  WARN 16988 --- [state-aggregation-service] [ad | producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=producer-1] Error while fetching metadata with correlation id 7 : {sensor-raw-events=LEADER_NOT_AVAILABLE}
+2026-05-03T21:28:39.457Z  WARN 16988 --- [state-aggregation-service] [ntainer#0-0-C-1] org.apache.kafka.clients.NetworkClient   : [Consumer clientId=consumer-state-aggregation-1, groupId=state-aggregation] Error while fetching metadata with correlation id 14 : {sensor-raw-events=LEADER_NOT_AVAILABLE}
+2026-05-03T21:28:40.002Z  INFO 16988 --- [state-aggregation-service] [ntainer#0-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-state-aggregation-1, groupId=state-aggregation] Discovered group coordinator localhost:56957 (id: 2147483646 rack: null)
+2026-05-03T21:28:40.004Z  INFO 16988 --- [state-aggregation-service] [ntainer#0-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-state-aggregation-1, groupId=state-aggregation] (Re-)joining group
+2026-05-03T21:28:40.028Z  INFO 16988 --- [state-aggregation-service] [ntainer#0-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-state-aggregation-1, groupId=state-aggregation] Request joining group due to: need to re-join with the given member-id: consumer-state-aggregation-1-e3b6ee44-cb51-4d1b-b8d3-edc0f50d324b
+2026-05-03T21:28:40.028Z  INFO 16988 --- [state-aggregation-service] [ntainer#0-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-state-aggregation-1, groupId=state-aggregation] Request joining group due to: rebalance failed due to 'The group member needs to have a valid member id before actually entering a consumer group.' (MemberIdRequiredException)
+2026-05-03T21:28:40.029Z  INFO 16988 --- [state-aggregation-service] [ntainer#0-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-state-aggregation-1, groupId=state-aggregation] (Re-)joining group
+2026-05-03T21:28:40.049Z  INFO 16988 --- [state-aggregation-service] [ntainer#0-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-state-aggregation-1, groupId=state-aggregation] Successfully joined group with generation Generation{generationId=1, memberId='consumer-state-aggregation-1-e3b6ee44-cb51-4d1b-b8d3-edc0f50d324b', protocol='range'}
+2026-05-03T21:28:40.056Z  INFO 16988 --- [state-aggregation-service] [ntainer#0-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-state-aggregation-1, groupId=state-aggregation] Finished assignment for group at generation 1: {consumer-state-aggregation-1-e3b6ee44-cb51-4d1b-b8d3-edc0f50d324b=Assignment(partitions=[sensor-raw-events-0])}
+2026-05-03T21:28:40.076Z  INFO 16988 --- [state-aggregation-service] [ntainer#0-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-state-aggregation-1, groupId=state-aggregation] Successfully synced group in generation Generation{generationId=1, memberId='consumer-state-aggregation-1-e3b6ee44-cb51-4d1b-b8d3-edc0f50d324b', protocol='range'}
+2026-05-03T21:28:40.076Z  INFO 16988 --- [state-aggregation-service] [ntainer#0-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-state-aggregation-1, groupId=state-aggregation] Notifying assignor about the new Assignment(partitions=[sensor-raw-events-0])
+2026-05-03T21:28:40.078Z  INFO 16988 --- [state-aggregation-service] [ntainer#0-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-state-aggregation-1, groupId=state-aggregation] Adding newly assigned partitions: sensor-raw-events-0
+2026-05-03T21:28:40.093Z  INFO 16988 --- [state-aggregation-service] [ntainer#0-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-state-aggregation-1, groupId=state-aggregation] Found no committed offset for partition sensor-raw-events-0
+2026-05-03T21:28:40.108Z  INFO 16988 --- [state-aggregation-service] [ntainer#0-0-C-1] o.a.k.c.c.internals.SubscriptionState    : [Consumer clientId=consumer-state-aggregation-1, groupId=state-aggregation] Resetting offset for partition sensor-raw-events-0 to position FetchPosition{offset=0, offsetEpoch=Optional.empty, currentLeader=LeaderAndEpoch{leader=Optional[localhost:56957 (id: 1 rack: null)], epoch=0}}.
+2026-05-03T21:28:40.109Z  INFO 16988 --- [state-aggregation-service] [ntainer#0-0-C-1] o.s.k.l.KafkaMessageListenerContainer    : state-aggregation: partitions assigned: [sensor-raw-events-0]
+2026-05-03T21:28:40.518Z  WARN 16988 --- [state-aggregation-service] [ad | producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=producer-1] Error while fetching metadata with correlation id 11 : {room-state-events=LEADER_NOT_AVAILABLE}
+2026-05-03T21:28:40.651Z  WARN 16988 --- [state-aggregation-service] [ad | producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=producer-1] Error while fetching metadata with correlation id 12 : {room-state-events=LEADER_NOT_AVAILABLE}
+2026-05-03T21:28:40.652Z  INFO 16988 --- [state-aggregation-service] [ad | producer-1] org.apache.kafka.clients.Metadata        : [Producer clientId=producer-1] Resetting the last seen epoch of partition sensor-raw-events-0 to 0 since the associated topicId changed from null to C92wOIfnQleJj__HpsPlPQ
+2026-05-03T21:28:40.774Z  WARN 16988 --- [state-aggregation-service] [ad | producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=producer-1] Error while fetching metadata with correlation id 13 : {room-state-events=LEADER_NOT_AVAILABLE}
+2026-05-03T21:28:40.895Z  WARN 16988 --- [state-aggregation-service] [ad | producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=producer-1] Error while fetching metadata with correlation id 14 : {room-state-events=LEADER_NOT_AVAILABLE}
+2026-05-03T21:28:41.572Z  INFO 16988 --- [state-aggregation-service] [o-auto-1-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-05-03T21:28:41.572Z  INFO 16988 --- [state-aggregation-service] [o-auto-1-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-05-03T21:28:41.574Z  INFO 16988 --- [state-aggregation-service] [o-auto-1-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2026-05-03T21:28:41.754Z  INFO 16988 --- [state-aggregation-service] [o-auto-1-exec-1] r.l.vkr.aggregation.admin.ReplayService  : Replay: начинаем (group=state-aggregation)
+2026-05-03T21:28:41.755Z  INFO 16988 --- [state-aggregation-service] [o-auto-1-exec-1] r.l.vkr.aggregation.admin.ReplayService  : Replay: останавливаем listener org.springframework.kafka.KafkaListenerEndpointContainer#0
+2026-05-03T21:28:41.757Z  INFO 16988 --- [state-aggregation-service] [ntainer#0-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-state-aggregation-1, groupId=state-aggregation] Revoke previously assigned partitions sensor-raw-events-0
+2026-05-03T21:28:41.757Z  INFO 16988 --- [state-aggregation-service] [ntainer#0-0-C-1] o.s.k.l.KafkaMessageListenerContainer    : state-aggregation: partitions revoked: [sensor-raw-events-0]
+2026-05-03T21:28:41.758Z  INFO 16988 --- [state-aggregation-service] [ntainer#0-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-state-aggregation-1, groupId=state-aggregation] Member consumer-state-aggregation-1-e3b6ee44-cb51-4d1b-b8d3-edc0f50d324b sending LeaveGroup request to coordinator localhost:56957 (id: 2147483646 rack: null) due to the consumer unsubscribed from all topics
+2026-05-03T21:28:41.758Z  INFO 16988 --- [state-aggregation-service] [ntainer#0-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-state-aggregation-1, groupId=state-aggregation] Resetting generation and member id due to: consumer pro-actively leaving the group
+2026-05-03T21:28:41.758Z  INFO 16988 --- [state-aggregation-service] [ntainer#0-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-state-aggregation-1, groupId=state-aggregation] Request joining group due to: consumer pro-actively leaving the group
+2026-05-03T21:28:41.758Z  INFO 16988 --- [state-aggregation-service] [ntainer#0-0-C-1] fkaConsumerFactory$ExtendedKafkaConsumer : [Consumer clientId=consumer-state-aggregation-1, groupId=state-aggregation] Unsubscribed all topics or patterns and assigned partitions
+2026-05-03T21:28:41.759Z  INFO 16988 --- [state-aggregation-service] [ntainer#0-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-state-aggregation-1, groupId=state-aggregation] Resetting generation and member id due to: consumer pro-actively leaving the group
+2026-05-03T21:28:41.760Z  INFO 16988 --- [state-aggregation-service] [ntainer#0-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-state-aggregation-1, groupId=state-aggregation] Request joining group due to: consumer pro-actively leaving the group
+2026-05-03T21:28:42.209Z  INFO 16988 --- [state-aggregation-service] [ntainer#0-0-C-1] o.apache.kafka.common.metrics.Metrics    : Metrics scheduler closed
+2026-05-03T21:28:42.210Z  INFO 16988 --- [state-aggregation-service] [ntainer#0-0-C-1] o.apache.kafka.common.metrics.Metrics    : Closing reporter org.apache.kafka.common.metrics.JmxReporter
+2026-05-03T21:28:42.210Z  INFO 16988 --- [state-aggregation-service] [ntainer#0-0-C-1] o.apache.kafka.common.metrics.Metrics    : Metrics reporters closed
+2026-05-03T21:28:42.222Z  INFO 16988 --- [state-aggregation-service] [ntainer#0-0-C-1] o.a.kafka.common.utils.AppInfoParser     : App info kafka.consumer for consumer-state-aggregation-1 unregistered
+2026-05-03T21:28:42.223Z  INFO 16988 --- [state-aggregation-service] [ntainer#0-0-C-1] o.s.k.l.KafkaMessageListenerContainer    : state-aggregation: Consumer stopped
+2026-05-03T21:28:42.275Z  INFO 16988 --- [state-aggregation-service] [o-auto-1-exec-1] o.a.k.clients.admin.AdminClientConfig    : AdminClientConfig values: 
+	auto.include.jmx.reporter = true
+	bootstrap.servers = [PLAINTEXT://localhost:56957]
+	client.dns.lookup = use_all_dns_ips
+	client.id = 
+	connections.max.idle.ms = 300000
+	default.api.timeout.ms = 60000
+	metadata.max.age.ms = 300000
+	metric.reporters = []
+	metrics.num.samples = 2
+	metrics.recording.level = INFO
+	metrics.sample.window.ms = 30000
+	receive.buffer.bytes = 65536
+	reconnect.backoff.max.ms = 1000
+	reconnect.backoff.ms = 50
+	request.timeout.ms = 30000
+	retries = 2147483647
+	retry.backoff.ms = 100
+	sasl.client.callback.handler.class = null
+	sasl.jaas.config = null
+	sasl.kerberos.kinit.cmd = /usr/bin/kinit
+	sasl.kerberos.min.time.before.relogin = 60000
+	sasl.kerberos.service.name = null
+	sasl.kerberos.ticket.renew.jitter = 0.05
+	sasl.kerberos.ticket.renew.window.factor = 0.8
+	sasl.login.callback.handler.class = null
+	sasl.login.class = null
+	sasl.login.connect.timeout.ms = null
+	sasl.login.read.timeout.ms = null
+	sasl.login.refresh.buffer.seconds = 300
+	sasl.login.refresh.min.period.seconds = 60
+	sasl.login.refresh.window.factor = 0.8
+	sasl.login.refresh.window.jitter = 0.05
+	sasl.login.retry.backoff.max.ms = 10000
+	sasl.login.retry.backoff.ms = 100
+	sasl.mechanism = GSSAPI
+	sasl.oauthbearer.clock.skew.seconds = 30
+	sasl.oauthbearer.expected.audience = null
+	sasl.oauthbearer.expected.issuer = null
+	sasl.oauthbearer.jwks.endpoint.refresh.ms = 3600000
+	sasl.oauthbearer.jwks.endpoint.retry.backoff.max.ms = 10000
+	sasl.oauthbearer.jwks.endpoint.retry.backoff.ms = 100
+	sasl.oauthbearer.jwks.endpoint.url = null
+	sasl.oauthbearer.scope.claim.name = scope
+	sasl.oauthbearer.sub.claim.name = sub
+	sasl.oauthbearer.token.endpoint.url = null
+	security.protocol = PLAINTEXT
+	security.providers = null
+	send.buffer.bytes = 131072
+	socket.connection.setup.timeout.max.ms = 30000
+	socket.connection.setup.timeout.ms = 10000
+	ssl.cipher.suites = null
+	ssl.enabled.protocols = [TLSv1.2, TLSv1.3]
+	ssl.endpoint.identification.algorithm = https
+	ssl.engine.factory.class = null
+	ssl.key.password = null
+	ssl.keymanager.algorithm = SunX509
+	ssl.keystore.certificate.chain = null
+	ssl.keystore.key = null
+	ssl.keystore.location = null
+	ssl.keystore.password = null
+	ssl.keystore.type = JKS
+	ssl.protocol = TLSv1.3
+	ssl.provider = null
+	ssl.secure.random.implementation = null
+	ssl.trustmanager.algorithm = PKIX
+	ssl.truststore.certificates = null
+	ssl.truststore.location = null
+	ssl.truststore.password = null
+	ssl.truststore.type = JKS
+
+2026-05-03T21:28:42.307Z  INFO 16988 --- [state-aggregation-service] [o-auto-1-exec-1] o.a.kafka.common.utils.AppInfoParser     : Kafka version: 3.6.2
+2026-05-03T21:28:42.307Z  INFO 16988 --- [state-aggregation-service] [o-auto-1-exec-1] o.a.kafka.common.utils.AppInfoParser     : Kafka commitId: c4deed513057c94e
+2026-05-03T21:28:42.307Z  INFO 16988 --- [state-aggregation-service] [o-auto-1-exec-1] o.a.kafka.common.utils.AppInfoParser     : Kafka startTimeMs: 1777843722307
+2026-05-03T21:28:42.374Z  INFO 16988 --- [state-aggregation-service] [o-auto-1-exec-1] r.l.vkr.aggregation.admin.ReplayService  : Replay: offset группы state-aggregation сброшен до earliest для 1 партиций
+2026-05-03T21:28:42.375Z  INFO 16988 --- [state-aggregation-service] [| adminclient-1] o.a.kafka.common.utils.AppInfoParser     : App info kafka.admin.client for adminclient-1 unregistered
+2026-05-03T21:28:42.377Z  INFO 16988 --- [state-aggregation-service] [| adminclient-1] o.apache.kafka.common.metrics.Metrics    : Metrics scheduler closed
+2026-05-03T21:28:42.377Z  INFO 16988 --- [state-aggregation-service] [| adminclient-1] o.apache.kafka.common.metrics.Metrics    : Closing reporter org.apache.kafka.common.metrics.JmxReporter
+2026-05-03T21:28:42.378Z  INFO 16988 --- [state-aggregation-service] [| adminclient-1] o.apache.kafka.common.metrics.Metrics    : Metrics reporters closed
+2026-05-03T21:28:42.378Z  INFO 16988 --- [state-aggregation-service] [o-auto-1-exec-1] r.l.vkr.aggregation.admin.ReplayService  : Replay: запускаем listener org.springframework.kafka.KafkaListenerEndpointContainer#0
+2026-05-03T21:28:42.379Z  INFO 16988 --- [state-aggregation-service] [o-auto-1-exec-1] o.a.k.clients.consumer.ConsumerConfig    : ConsumerConfig values: 
+	allow.auto.create.topics = true
+	auto.commit.interval.ms = 5000
+	auto.include.jmx.reporter = true
+	auto.offset.reset = earliest
+	bootstrap.servers = [PLAINTEXT://localhost:56957]
+	check.crcs = true
+	client.dns.lookup = use_all_dns_ips
+	client.id = consumer-state-aggregation-2
+	client.rack = 
+	connections.max.idle.ms = 540000
+	default.api.timeout.ms = 60000
+	enable.auto.commit = false
+	exclude.internal.topics = true
+	fetch.max.bytes = 52428800
+	fetch.max.wait.ms = 500
+	fetch.min.bytes = 1
+	group.id = state-aggregation
+	group.instance.id = null
+	heartbeat.interval.ms = 3000
+	interceptor.classes = []
+	internal.leave.group.on.close = true
+	internal.throw.on.fetch.stable.offset.unsupported = false
+	isolation.level = read_uncommitted
+	key.deserializer = class org.apache.kafka.common.serialization.StringDeserializer
+	max.partition.fetch.bytes = 1048576
+	max.poll.interval.ms = 300000
+	max.poll.records = 500
+	metadata.max.age.ms = 300000
+	metric.reporters = []
+	metrics.num.samples = 2
+	metrics.recording.level = INFO
+	metrics.sample.window.ms = 30000
+	partition.assignment.strategy = [class org.apache.kafka.clients.consumer.RangeAssignor, class org.apache.kafka.clients.consumer.CooperativeStickyAssignor]
+	receive.buffer.bytes = 65536
+	reconnect.backoff.max.ms = 1000
+	reconnect.backoff.ms = 50
+	request.timeout.ms = 30000
+	retry.backoff.ms = 100
+	sasl.client.callback.handler.class = null
+	sasl.jaas.config = null
+	sasl.kerberos.kinit.cmd = /usr/bin/kinit
+	sasl.kerberos.min.time.before.relogin = 60000
+	sasl.kerberos.service.name = null
+	sasl.kerberos.ticket.renew.jitter = 0.05
+	sasl.kerberos.ticket.renew.window.factor = 0.8
+	sasl.login.callback.handler.class = null
+	sasl.login.class = null
+	sasl.login.connect.timeout.ms = null
+	sasl.login.read.timeout.ms = null
+	sasl.login.refresh.buffer.seconds = 300
+	sasl.login.refresh.min.period.seconds = 60
+	sasl.login.refresh.window.factor = 0.8
+	sasl.login.refresh.window.jitter = 0.05
+	sasl.login.retry.backoff.max.ms = 10000
+	sasl.login.retry.backoff.ms = 100
+	sasl.mechanism = GSSAPI
+	sasl.oauthbearer.clock.skew.seconds = 30
+	sasl.oauthbearer.expected.audience = null
+	sasl.oauthbearer.expected.issuer = null
+	sasl.oauthbearer.jwks.endpoint.refresh.ms = 3600000
+	sasl.oauthbearer.jwks.endpoint.retry.backoff.max.ms = 10000
+	sasl.oauthbearer.jwks.endpoint.retry.backoff.ms = 100
+	sasl.oauthbearer.jwks.endpoint.url = null
+	sasl.oauthbearer.scope.claim.name = scope
+	sasl.oauthbearer.sub.claim.name = sub
+	sasl.oauthbearer.token.endpoint.url = null
+	security.protocol = PLAINTEXT
+	security.providers = null
+	send.buffer.bytes = 131072
+	session.timeout.ms = 45000
+	socket.connection.setup.timeout.max.ms = 30000
+	socket.connection.setup.timeout.ms = 10000
+	ssl.cipher.suites = null
+	ssl.enabled.protocols = [TLSv1.2, TLSv1.3]
+	ssl.endpoint.identification.algorithm = https
+	ssl.engine.factory.class = null
+	ssl.key.password = null
+	ssl.keymanager.algorithm = SunX509
+	ssl.keystore.certificate.chain = null
+	ssl.keystore.key = null
+	ssl.keystore.location = null
+	ssl.keystore.password = null
+	ssl.keystore.type = JKS
+	ssl.protocol = TLSv1.3
+	ssl.provider = null
+	ssl.secure.random.implementation = null
+	ssl.trustmanager.algorithm = PKIX
+	ssl.truststore.certificates = null
+	ssl.truststore.location = null
+	ssl.truststore.password = null
+	ssl.truststore.type = JKS
+	value.deserializer = class org.springframework.kafka.support.serializer.JsonDeserializer
+
+2026-05-03T21:28:42.388Z  INFO 16988 --- [state-aggregation-service] [o-auto-1-exec-1] o.a.kafka.common.utils.AppInfoParser     : Kafka version: 3.6.2
+2026-05-03T21:28:42.388Z  INFO 16988 --- [state-aggregation-service] [o-auto-1-exec-1] o.a.kafka.common.utils.AppInfoParser     : Kafka commitId: c4deed513057c94e
+2026-05-03T21:28:42.388Z  INFO 16988 --- [state-aggregation-service] [o-auto-1-exec-1] o.a.kafka.common.utils.AppInfoParser     : Kafka startTimeMs: 1777843722388
+2026-05-03T21:28:42.391Z  INFO 16988 --- [state-aggregation-service] [o-auto-1-exec-1] fkaConsumerFactory$ExtendedKafkaConsumer : [Consumer clientId=consumer-state-aggregation-2, groupId=state-aggregation] Subscribed to topic(s): sensor-raw-events
+2026-05-03T21:28:42.392Z  INFO 16988 --- [state-aggregation-service] [o-auto-1-exec-1] r.l.vkr.aggregation.admin.ReplayService  : Replay: операция инициирована за 637 мс. Было 1 room_states, очищено.
+2026-05-03T21:28:42.401Z  INFO 16988 --- [state-aggregation-service] [ntainer#0-0-C-2] org.apache.kafka.clients.Metadata        : [Consumer clientId=consumer-state-aggregation-2, groupId=state-aggregation] Cluster ID: E9Np6aTZSSy1kl1vuIgMKA
+2026-05-03T21:28:42.402Z  INFO 16988 --- [state-aggregation-service] [ntainer#0-0-C-2] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-state-aggregation-2, groupId=state-aggregation] Discovered group coordinator localhost:56957 (id: 2147483646 rack: null)
+2026-05-03T21:28:42.403Z  INFO 16988 --- [state-aggregation-service] [ntainer#0-0-C-2] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-state-aggregation-2, groupId=state-aggregation] (Re-)joining group
+2026-05-03T21:28:42.416Z  INFO 16988 --- [state-aggregation-service] [ntainer#0-0-C-2] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-state-aggregation-2, groupId=state-aggregation] Request joining group due to: need to re-join with the given member-id: consumer-state-aggregation-2-39cb5052-30cf-431b-9458-774e4b3c98e1
+2026-05-03T21:28:42.416Z  INFO 16988 --- [state-aggregation-service] [ntainer#0-0-C-2] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-state-aggregation-2, groupId=state-aggregation] Request joining group due to: rebalance failed due to 'The group member needs to have a valid member id before actually entering a consumer group.' (MemberIdRequiredException)
+2026-05-03T21:28:42.416Z  INFO 16988 --- [state-aggregation-service] [ntainer#0-0-C-2] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-state-aggregation-2, groupId=state-aggregation] (Re-)joining group
+2026-05-03T21:28:42.424Z  INFO 16988 --- [state-aggregation-service] [ntainer#0-0-C-2] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-state-aggregation-2, groupId=state-aggregation] Successfully joined group with generation Generation{generationId=3, memberId='consumer-state-aggregation-2-39cb5052-30cf-431b-9458-774e4b3c98e1', protocol='range'}
+2026-05-03T21:28:42.424Z  INFO 16988 --- [state-aggregation-service] [ntainer#0-0-C-2] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-state-aggregation-2, groupId=state-aggregation] Finished assignment for group at generation 3: {consumer-state-aggregation-2-39cb5052-30cf-431b-9458-774e4b3c98e1=Assignment(partitions=[sensor-raw-events-0])}
+2026-05-03T21:28:42.430Z  INFO 16988 --- [state-aggregation-service] [ntainer#0-0-C-2] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-state-aggregation-2, groupId=state-aggregation] Successfully synced group in generation Generation{generationId=3, memberId='consumer-state-aggregation-2-39cb5052-30cf-431b-9458-774e4b3c98e1', protocol='range'}
+2026-05-03T21:28:42.430Z  INFO 16988 --- [state-aggregation-service] [ntainer#0-0-C-2] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-state-aggregation-2, groupId=state-aggregation] Notifying assignor about the new Assignment(partitions=[sensor-raw-events-0])
+2026-05-03T21:28:42.430Z  INFO 16988 --- [state-aggregation-service] [ntainer#0-0-C-2] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-state-aggregation-2, groupId=state-aggregation] Adding newly assigned partitions: sensor-raw-events-0
+2026-05-03T21:28:42.434Z  INFO 16988 --- [state-aggregation-service] [ntainer#0-0-C-2] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-state-aggregation-2, groupId=state-aggregation] Setting offset for partition sensor-raw-events-0 to the committed offset FetchPosition{offset=0, offsetEpoch=Optional.empty, currentLeader=LeaderAndEpoch{leader=Optional[localhost:56957 (id: 1 rack: null)], epoch=0}}
+2026-05-03T21:28:42.435Z  INFO 16988 --- [state-aggregation-service] [ntainer#0-0-C-2] o.s.k.l.KafkaMessageListenerContainer    : state-aggregation: partitions assigned: [sensor-raw-events-0]
+2026-05-03T21:29:45.154Z  INFO 16988 --- [state-aggregation-service] [ntainer#0-0-C-2] org.apache.kafka.clients.NetworkClient   : [Consumer clientId=consumer-state-aggregation-2, groupId=state-aggregation] Node 2147483646 disconnected.
+2026-05-03T21:29:45.154Z  INFO 16988 --- [state-aggregation-service] [ad | producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=producer-1] Node 1 disconnected.
+2026-05-03T21:29:45.155Z  INFO 16988 --- [state-aggregation-service] [ad | producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=producer-1] Node -1 disconnected.
+2026-05-03T21:29:45.155Z  INFO 16988 --- [state-aggregation-service] [ntainer#0-0-C-2] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-state-aggregation-2, groupId=state-aggregation] Group coordinator localhost:56957 (id: 2147483646 rack: null) is unavailable or invalid due to cause: coordinator unavailable. isDisconnected: true. Rediscovery will be attempted.
+2026-05-03T21:29:45.156Z  INFO 16988 --- [state-aggregation-service] [ntainer#0-0-C-2] org.apache.kafka.clients.NetworkClient   : [Consumer clientId=consumer-state-aggregation-2, groupId=state-aggregation] Node 1 disconnected.
+2026-05-03T21:29:45.156Z  INFO 16988 --- [state-aggregation-service] [ntainer#0-0-C-2] org.apache.kafka.clients.NetworkClient   : [Consumer clientId=consumer-state-aggregation-2, groupId=state-aggregation] Cancelled in-flight FETCH request with correlation id 155 due to node 1 being disconnected (elapsed time since creation: 98ms, elapsed time since send: 98ms, request timeout: 30000ms)
+2026-05-03T21:29:45.156Z  INFO 16988 --- [state-aggregation-service] [ntainer#0-0-C-2] org.apache.kafka.clients.NetworkClient   : [Consumer clientId=consumer-state-aggregation-2, groupId=state-aggregation] Cancelled in-flight METADATA request with correlation id 157 due to node 1 being disconnected (elapsed time since creation: 1ms, elapsed time since send: 1ms, request timeout: 30000ms)
+2026-05-03T21:29:45.156Z  INFO 16988 --- [state-aggregation-service] [ntainer#0-0-C-2] org.apache.kafka.clients.NetworkClient   : [Consumer clientId=consumer-state-aggregation-2, groupId=state-aggregation] Node -1 disconnected.
+2026-05-03T21:29:45.157Z  INFO 16988 --- [state-aggregation-service] [ntainer#0-0-C-2] o.a.kafka.clients.FetchSessionHandler    : [Consumer clientId=consumer-state-aggregation-2, groupId=state-aggregation] Error sending fetch request (sessionId=1525960103, epoch=125) to node 1:
+
+org.apache.kafka.common.errors.DisconnectException: null
+
+2026-05-03T21:29:45.277Z  INFO 16988 --- [state-aggregation-service] [ntainer#0-0-C-2] org.apache.kafka.clients.NetworkClient   : [Consumer clientId=consumer-state-aggregation-2, groupId=state-aggregation] Node 1 disconnected.
+2026-05-03T21:29:45.276Z  INFO 16988 --- [state-aggregation-service] [ad | producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=producer-1] Node 1 disconnected.
+2026-05-03T21:29:45.278Z  INFO 16988 --- [state-aggregation-service] [ntainer#0-0-C-2] org.apache.kafka.clients.NetworkClient   : [Consumer clientId=consumer-state-aggregation-2, groupId=state-aggregation] Cancelled in-flight API_VERSIONS request with correlation id 158 due to node 1 being disconnected (elapsed time since creation: 7ms, elapsed time since send: 7ms, request timeout: 30000ms)
+2026-05-03T21:29:45.279Z  INFO 16988 --- [state-aggregation-service] [ad | producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=producer-1] Cancelled in-flight API_VERSIONS request with correlation id 19 due to node 1 being disconnected (elapsed time since creation: 5ms, elapsed time since send: 5ms, request timeout: 30000ms)
+2026-05-03T21:29:45.385Z  INFO 16988 --- [state-aggregation-service] [ntainer#0-0-C-2] org.apache.kafka.clients.NetworkClient   : [Consumer clientId=consumer-state-aggregation-2, groupId=state-aggregation] Node 1 disconnected.
+2026-05-03T21:29:45.385Z  INFO 16988 --- [state-aggregation-service] [ad | producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=producer-1] Node 1 disconnected.
+2026-05-03T21:29:45.385Z  INFO 16988 --- [state-aggregation-service] [ntainer#0-0-C-2] org.apache.kafka.clients.NetworkClient   : [Consumer clientId=consumer-state-aggregation-2, groupId=state-aggregation] Cancelled in-flight API_VERSIONS request with correlation id 159 due to node 1 being disconnected (elapsed time since creation: 6ms, elapsed time since send: 6ms, request timeout: 30000ms)
+2026-05-03T21:29:45.387Z  INFO 16988 --- [state-aggregation-service] [ad | producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=producer-1] Cancelled in-flight API_VERSIONS request with correlation id 20 due to node 1 being disconnected (elapsed time since creation: 6ms, elapsed time since send: 6ms, request timeout: 30000ms)
+2026-05-03T21:29:45.593Z  INFO 16988 --- [state-aggregation-service] [ntainer#0-0-C-2] org.apache.kafka.clients.NetworkClient   : [Consumer clientId=consumer-state-aggregation-2, groupId=state-aggregation] Node 1 disconnected.
+2026-05-03T21:29:45.595Z  INFO 16988 --- [state-aggregation-service] [ntainer#0-0-C-2] org.apache.kafka.clients.NetworkClient   : [Consumer clientId=consumer-state-aggregation-2, groupId=state-aggregation] Cancelled in-flight API_VERSIONS request with correlation id 160 due to node 1 being disconnected (elapsed time since creation: 5ms, elapsed time since send: 5ms, request timeout: 30000ms)
+2026-05-03T21:29:45.599Z  INFO 16988 --- [state-aggregation-service] [ad | producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=producer-1] Node 1 disconnected.
+2026-05-03T21:29:45.600Z  INFO 16988 --- [state-aggregation-service] [ad | producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=producer-1] Cancelled in-flight API_VERSIONS request with correlation id 21 due to node 1 being disconnected (elapsed time since creation: 3ms, elapsed time since send: 3ms, request timeout: 30000ms)
+2026-05-03T21:29:46.045Z  INFO 16988 --- [state-aggregation-service] [ad | producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=producer-1] Node 1 disconnected.
+2026-05-03T21:29:46.045Z  INFO 16988 --- [state-aggregation-service] [ntainer#0-0-C-2] org.apache.kafka.clients.NetworkClient   : [Consumer clientId=consumer-state-aggregation-2, groupId=state-aggregation] Node 1 disconnected.
+2026-05-03T21:29:46.045Z  INFO 16988 --- [state-aggregation-service] [ntainer#0-0-C-2] org.apache.kafka.clients.NetworkClient   : [Consumer clientId=consumer-state-aggregation-2, groupId=state-aggregation] Cancelled in-flight API_VERSIONS request with correlation id 161 due to node 1 being disconnected (elapsed time since creation: 1ms, elapsed time since send: 1ms, request timeout: 30000ms)
+2026-05-03T21:29:46.045Z  INFO 16988 --- [state-aggregation-service] [ad | producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=producer-1] Cancelled in-flight API_VERSIONS request with correlation id 22 due to node 1 being disconnected (elapsed time since creation: 1ms, elapsed time since send: 1ms, request timeout: 30000ms)
+2026-05-03T21:29:46.777Z  INFO 16988 --- [state-aggregation-service] [ntainer#0-0-C-2] org.apache.kafka.clients.NetworkClient   : [Consumer clientId=consumer-state-aggregation-2, groupId=state-aggregation] Node 1 disconnected.
+2026-05-03T21:29:46.778Z  INFO 16988 --- [state-aggregation-service] [ntainer#0-0-C-2] org.apache.kafka.clients.NetworkClient   : [Consumer clientId=consumer-state-aggregation-2, groupId=state-aggregation] Cancelled in-flight API_VERSIONS request with correlation id 162 due to node 1 being disconnected (elapsed time since creation: 1ms, elapsed time since send: 1ms, request timeout: 30000ms)
+2026-05-03T21:29:46.903Z  INFO 16988 --- [state-aggregation-service] [ad | producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=producer-1] Node 1 disconnected.
+2026-05-03T21:29:46.904Z  INFO 16988 --- [state-aggregation-service] [ad | producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=producer-1] Cancelled in-flight API_VERSIONS request with correlation id 23 due to node 1 being disconnected (elapsed time since creation: 1ms, elapsed time since send: 1ms, request timeout: 30000ms)
+21:29:47 [ERROR] Tests run: 2, Failures: 0, Errors: 2, Skipped: 0, Time elapsed: 99.66 s <<< FAILURE! -- in ru.leti.vkr.aggregation.admin.ReplayIntegrationTest
+21:29:47 [ERROR] ru.leti.vkr.aggregation.admin.ReplayIntegrationTest.replay стирает room_states и пересчитывает их из sensor_events -- Time elapsed: 64.51 s <<< ERROR!
+org.awaitility.core.ConditionTimeoutException: 
+Assertion condition defined as a Lambda expression in ru.leti.vkr.aggregation.admin.ReplayIntegrationTest 
+Expecting actual not to be null within 1 minutes.
+	at org.awaitility.core.ConditionAwaiter.await(ConditionAwaiter.java:167)
+	at org.awaitility.core.AssertionCondition.await(AssertionCondition.java:119)
+	at org.awaitility.core.AssertionCondition.await(AssertionCondition.java:31)
+	at org.awaitility.core.ConditionFactory.until(ConditionFactory.java:1006)
+	at org.awaitility.core.ConditionFactory.untilAsserted(ConditionFactory.java:790)
+	at ru.leti.vkr.aggregation.admin.ReplayIntegrationTest.replay стирает room_states и пересчитывает их из sensor_events(ReplayIntegrationTest.kt:96)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1597)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1597)
+Caused by: java.lang.AssertionError: 
+Expecting actual not to be null
+	at ru.leti.vkr.aggregation.admin.ReplayIntegrationTest.replay_стирает_room_states_и_пересчитывает_их_из_sensor_events$lambda$3(ReplayIntegrationTest.kt:98)
+	at org.awaitility.core.AssertionCondition.lambda$new$0(AssertionCondition.java:53)
+	at org.awaitility.core.ConditionAwaiter$ConditionPoller.call(ConditionAwaiter.java:248)
+	at org.awaitility.core.ConditionAwaiter$ConditionPoller.call(ConditionAwaiter.java:235)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:317)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1570)
+
+21:29:47 [ERROR] ru.leti.vkr.aggregation.admin.ReplayIntegrationTest.без креденшелов admin replay отдаёт 401 -- Time elapsed: 0.034 s <<< ERROR!
+org.springframework.web.client.ResourceAccessException: I/O error on POST request for "http://localhost:56973/admin/replay": cannot retry due to server authentication, in streaming mode
+	at org.springframework.web.client.RestTemplate.createResourceAccessException(RestTemplate.java:915)
+	at org.springframework.web.client.RestTemplate.doExecute(RestTemplate.java:895)
+	at org.springframework.web.client.RestTemplate.execute(RestTemplate.java:790)
+	at org.springframework.web.client.RestTemplate.exchange(RestTemplate.java:672)
+	at org.springframework.boot.test.web.client.TestRestTemplate.exchange(TestRestTemplate.java:711)
+	at ru.leti.vkr.aggregation.admin.ReplayIntegrationTest.без креденшелов admin replay отдаёт 401(ReplayIntegrationTest.kt:115)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1597)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1597)
+Caused by: java.net.HttpRetryException: cannot retry due to server authentication, in streaming mode
+	at java.base/sun.net.www.protocol.http.HttpURLConnection.getInputStream0(HttpURLConnection.java:1812)
+	at java.base/sun.net.www.protocol.http.HttpURLConnection.getInputStream(HttpURLConnection.java:1615)
+	at java.base/java.net.HttpURLConnection.getResponseCode(HttpURLConnection.java:531)
+	at org.springframework.http.client.SimpleClientHttpResponse.getStatusCode(SimpleClientHttpResponse.java:55)
+	at org.springframework.web.client.DefaultResponseErrorHandler.hasError(DefaultResponseErrorHandler.java:83)
+	at org.springframework.web.client.RestTemplate.handleResponse(RestTemplate.java:931)
+	at org.springframework.web.client.RestTemplate.doExecute(RestTemplate.java:891)
+	... 7 more
+
+2026-05-03T21:29:47.838Z  INFO 16988 --- [state-aggregation-service] [ad | producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=producer-1] Node 1 disconnected.
+2026-05-03T21:29:47.839Z  WARN 16988 --- [state-aggregation-service] [ad | producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=producer-1] Connection to node 1 (localhost/127.0.0.1:56957) could not be established. Broker may not be available.
+2026-05-03T21:29:47.841Z  INFO 16988 --- [state-aggregation-service] [ntainer#0-0-C-2] org.apache.kafka.clients.NetworkClient   : [Consumer clientId=consumer-state-aggregation-2, groupId=state-aggregation] Node 1 disconnected.
+2026-05-03T21:29:47.842Z  WARN 16988 --- [state-aggregation-service] [ntainer#0-0-C-2] org.apache.kafka.clients.NetworkClient   : [Consumer clientId=consumer-state-aggregation-2, groupId=state-aggregation] Connection to node 1 (localhost/127.0.0.1:56957) could not be established. Broker may not be available.
+21:30:00 [INFO] 
+21:30:00 [INFO] Results:
+21:30:00 [INFO] 
+21:30:00 [ERROR] Errors: 
+21:30:00 [ERROR]   ReplayIntegrationTest.replay стирает room_states и пересчитывает их из sensor_events:96 » ConditionTimeout Assertion condition defined as a Lambda expression in ru.leti.vkr.aggregation.admin.ReplayIntegrationTest 
+Expecting actual not to be null within 1 minutes.
+21:30:00 [ERROR]   ReplayIntegrationTest.без креденшелов admin replay отдаёт 401:115 » ResourceAccess I/O error on POST request for "http://localhost:56973/admin/replay": cannot retry due to server authentication, in streaming mode
+21:30:00 [INFO] 
+21:30:00 [ERROR] Tests run: 2, Failures: 0, Errors: 2, Skipped: 0
+21:30:00 [INFO] 
+21:30:00 [INFO] ------------------------------------------------------------------------
+21:30:00 [INFO] Reactor Summary for iot-monitoring 1.0.0:
+21:30:00 [INFO] 
+21:30:00 [INFO] iot-monitoring ..................................... SUCCESS [  0.780 s]
+21:30:00 [INFO] common ............................................. SUCCESS [  4.845 s]
+21:30:00 [INFO] state-aggregation-service .......................... FAILURE [02:00 min]
+21:30:00 [INFO] ------------------------------------------------------------------------
+21:30:00 [INFO] BUILD FAILURE
+21:30:00 [INFO] ------------------------------------------------------------------------
+21:30:00 [INFO] Total time:  02:06 min
+21:30:00 [INFO] Finished at: 2026-05-03T21:30:00Z
+21:30:00 [INFO] ------------------------------------------------------------------------
+21:30:00 [ERROR] Failed to execute goal org.apache.maven.plugins:maven-surefire-plugin:3.2.5:test (default-test) on project state-aggregation-service: 
+21:30:00 [ERROR] 
+21:30:00 [ERROR] Please refer to D:\ЛЭТИ\ДИПЛОМ\vkr\state-aggregation-service\target\surefire-reports for the individual test results.
+21:30:00 [ERROR] Please refer to dump files (if any exist) [date].dump, [date]-jvmRun[N].dump and [date].dumpstream.
+21:30:00 [ERROR] -> [Help 1]
+org.apache.maven.lifecycle.LifecycleExecutionException: Failed to execute goal org.apache.maven.plugins:maven-surefire-plugin:3.2.5:test (default-test) on project state-aggregation-service: 
+
+Please refer to D:\ЛЭТИ\ДИПЛОМ\vkr\state-aggregation-service\target\surefire-reports for the individual test results.
+Please refer to dump files (if any exist) [date].dump, [date]-jvmRun[N].dump and [date].dumpstream.
+    at org.apache.maven.lifecycle.internal.MojoExecutor.doExecute2 (MojoExecutor.java:333)
+    at org.apache.maven.lifecycle.internal.MojoExecutor.doExecute (MojoExecutor.java:316)
+    at org.apache.maven.lifecycle.internal.MojoExecutor.execute (MojoExecutor.java:212)
+    at org.apache.maven.lifecycle.internal.MojoExecutor.execute (MojoExecutor.java:174)
+    at org.apache.maven.lifecycle.internal.MojoExecutor.access$000 (MojoExecutor.java:75)
+    at org.apache.maven.lifecycle.internal.MojoExecutor$1.run (MojoExecutor.java:162)
+    at org.apache.maven.plugin.DefaultMojosExecutionStrategy.execute (DefaultMojosExecutionStrategy.java:39)
+    at org.apache.maven.lifecycle.internal.MojoExecutor.execute (MojoExecutor.java:159)
+    at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject (LifecycleModuleBuilder.java:105)
+    at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject (LifecycleModuleBuilder.java:73)
+    at org.apache.maven.lifecycle.internal.builder.singlethreaded.SingleThreadedBuilder.build (SingleThreadedBuilder.java:53)
+    at org.apache.maven.lifecycle.internal.LifecycleStarter.execute (LifecycleStarter.java:118)
+    at org.apache.maven.DefaultMaven.doExecute (DefaultMaven.java:261)
+    at org.apache.maven.DefaultMaven.doExecute (DefaultMaven.java:173)
+    at org.apache.maven.DefaultMaven.execute (DefaultMaven.java:101)
+    at org.apache.maven.cli.MavenCli.execute (MavenCli.java:906)
+    at org.apache.maven.cli.MavenCli.doMain (MavenCli.java:283)
+    at org.apache.maven.cli.MavenCli.main (MavenCli.java:206)
+    at jdk.internal.reflect.DirectMethodHandleAccessor.invoke (DirectMethodHandleAccessor.java:103)
+    at java.lang.reflect.Method.invoke (Method.java:580)
+    at org.codehaus.plexus.classworlds.launcher.Launcher.launchEnhanced (Launcher.java:255)
+    at org.codehaus.plexus.classworlds.launcher.Launcher.launch (Launcher.java:201)
+    at org.codehaus.plexus.classworlds.launcher.Launcher.mainWithExitCode (Launcher.java:361)
+    at org.codehaus.plexus.classworlds.launcher.Launcher.main (Launcher.java:314)
+Caused by: org.apache.maven.plugin.MojoFailureException: 
+
+Please refer to D:\ЛЭТИ\ДИПЛОМ\vkr\state-aggregation-service\target\surefire-reports for the individual test results.
+Please refer to dump files (if any exist) [date].dump, [date]-jvmRun[N].dump and [date].dumpstream.
+    at org.apache.maven.plugin.surefire.SurefireHelper.throwException (SurefireHelper.java:247)
+    at org.apache.maven.plugin.surefire.SurefireHelper.reportExecution (SurefireHelper.java:159)
+    at org.apache.maven.plugin.surefire.SurefirePlugin.handleSummary (SurefirePlugin.java:542)
+    at org.apache.maven.plugin.surefire.AbstractSurefireMojo.executeAfterPreconditionsChecked (AbstractSurefireMojo.java:1102)
+    at org.apache.maven.plugin.surefire.AbstractSurefireMojo.execute (AbstractSurefireMojo.java:910)
+    at org.apache.maven.plugin.DefaultBuildPluginManager.executeMojo (DefaultBuildPluginManager.java:126)
+    at org.apache.maven.lifecycle.internal.MojoExecutor.doExecute2 (MojoExecutor.java:328)
+    at org.apache.maven.lifecycle.internal.MojoExecutor.doExecute (MojoExecutor.java:316)
+    at org.apache.maven.lifecycle.internal.MojoExecutor.execute (MojoExecutor.java:212)
+    at org.apache.maven.lifecycle.internal.MojoExecutor.execute (MojoExecutor.java:174)
+    at org.apache.maven.lifecycle.internal.MojoExecutor.access$000 (MojoExecutor.java:75)
+    at org.apache.maven.lifecycle.internal.MojoExecutor$1.run (MojoExecutor.java:162)
+    at org.apache.maven.plugin.DefaultMojosExecutionStrategy.execute (DefaultMojosExecutionStrategy.java:39)
+    at org.apache.maven.lifecycle.internal.MojoExecutor.execute (MojoExecutor.java:159)
+    at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject (LifecycleModuleBuilder.java:105)
+    at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject (LifecycleModuleBuilder.java:73)
+    at org.apache.maven.lifecycle.internal.builder.singlethreaded.SingleThreadedBuilder.build (SingleThreadedBuilder.java:53)
+    at org.apache.maven.lifecycle.internal.LifecycleStarter.execute (LifecycleStarter.java:118)
+    at org.apache.maven.DefaultMaven.doExecute (DefaultMaven.java:261)
+    at org.apache.maven.DefaultMaven.doExecute (DefaultMaven.java:173)
+    at org.apache.maven.DefaultMaven.execute (DefaultMaven.java:101)
+    at org.apache.maven.cli.MavenCli.execute (MavenCli.java:906)
+    at org.apache.maven.cli.MavenCli.doMain (MavenCli.java:283)
+    at org.apache.maven.cli.MavenCli.main (MavenCli.java:206)
+    at jdk.internal.reflect.DirectMethodHandleAccessor.invoke (DirectMethodHandleAccessor.java:103)
+    at java.lang.reflect.Method.invoke (Method.java:580)
+    at org.codehaus.plexus.classworlds.launcher.Launcher.launchEnhanced (Launcher.java:255)
+    at org.codehaus.plexus.classworlds.launcher.Launcher.launch (Launcher.java:201)
+    at org.codehaus.plexus.classworlds.launcher.Launcher.mainWithExitCode (Launcher.java:361)
+    at org.codehaus.plexus.classworlds.launcher.Launcher.main (Launcher.java:314)
+21:30:00 [ERROR] 
+21:30:00 [ERROR] Re-run Maven using the -X switch to enable full debug logging.
+21:30:00 [ERROR] 
+21:30:00 [ERROR] For more information about the errors and possible solutions, please read the following articles:
+21:30:00 [ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException
+21:30:00 [ERROR] 
+21:30:00 [ERROR] After correcting the problems, you can resume the build with the command
+21:30:00 [ERROR]   mvn <args> -rf :state-aggregation-service
