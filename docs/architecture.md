@@ -30,14 +30,18 @@ IoT-симулятор / шлюз
 
 ## Топики Kafka
 
-| Топик               | Producer           | Consumers                                  | Ключ      |
-|---------------------|--------------------|--------------------------------------------|-----------|
-| sensor-raw-events   | ingestion          | state-aggregation, anomaly-detection       | room_id   |
-| room-state-events   | state-aggregation  | будущие потребители, Grafana streaming     | room_id   |
-| alert-events        | anomaly-detection  | будущий сервис уведомлений                 | room_id   |
+| Топик                    | Producer                              | Consumers                                  | Ключ      |
+|--------------------------|---------------------------------------|--------------------------------------------|-----------|
+| sensor-raw-events        | ingestion                             | state-aggregation, anomaly-detection       | room_id   |
+| sensor-raw-events.DLT    | DeadLetterPublishingRecoverer (state) | (вручную)                                  | room_id   |
+| room-state-events        | state-aggregation                     | будущие потребители, Grafana streaming     | room_id   |
+| room-state-events.DLT    | DeadLetterPublishingRecoverer         | (вручную)                                  | room_id   |
+| alert-events             | anomaly-detection                     | будущий сервис уведомлений                 | room_id   |
 
 Партиционирование по `room_id` гарантирует упорядоченную обработку событий внутри одного помещения.
-Producer-ы используют `acks=all` и идемпотентный режим, что обеспечивает at-least-once доставку без дубликатов от ретраев.
+Producer-ы используют `acks=all` и идемпотентный режим (`enable.idempotence=true`, `delivery.timeout.ms=120000`), что обеспечивает at-least-once доставку без дубликатов от ретраев.
+
+Consumer-ы `state-aggregation` и `anomaly-detection` используют `DefaultErrorHandler` с `FixedBackOff(1000ms, 2 retries)`. После 3 неудачных попыток обработки сообщение попадает в `<topic>.DLT` той же партиции и листенер продолжает обработку — poison message не блокирует партицию.
 
 ## Схема PostgreSQL
 
@@ -63,7 +67,7 @@ Producer-ы используют `acks=all` и идемпотентный реж
 - Идемпотентность: `existsByEventId` перед вставкой в `sensor_events`
 - Применяет Event Sourcing: дописывает событие в лог `sensor_events`, обновляет `room_states` (последнее показание по каждому `sensor_type`)
 - Публикует свежий `RoomState` в `room-state-events`
-- Replay: полное состояние можно пересчитать, опустошив `room_states` и сбросив offset consumer-а на `earliest`
+- Замыкание Event Sourcing: `POST /admin/replay` (basic auth, порт 8082) останавливает Kafka-листенеры, делает `TRUNCATE room_states`, упорядоченно перечитывает таблицу `sensor_events` и пересчитывает `room_states`. Источник истины при replay — БД, не Kafka, потому что идемпотентность по `event_id` пропустила бы повторно полученные из Kafka события. Метрики: `replay_invocations_total`, `replay_events_processed_total`, `replay_duration_seconds`, `replay_in_progress`.
 - Партиционирование гарантирует одного писателя на `room_id` — конфликтов записи нет
 
 ### anomaly-detection-service
@@ -87,6 +91,14 @@ Producer-ы используют `acks=all` и идемпотентный реж
 ## Замечания о масштабируемости
 
 - Все сервисы stateless, кроме state-aggregation (его «состояние» — назначение партиций по `room_id`).
-- Replay: сброс offset consumer-а `state-aggregation` на `earliest` → пересчёт `room_states` из полного лога Kafka.
+- Replay реализован как пересчёт `room_states` из БД (см. `state-aggregation-service`). Возможно полное восстановление при потере таблицы.
 - Consumer groups позволяют независимо масштабировать state-aggregation и anomaly-detection.
 - `query-service` и `event-ingestion` — чисто stateless и масштабируются репликами за балансировщиком.
+
+## Отказоустойчивость
+
+- Producer-ы: `acks=all`, `enable.idempotence=true`, `retries=Integer.MAX_VALUE`, `delivery.timeout.ms=120000`.
+- Consumer-ы: `DefaultErrorHandler` + `DeadLetterPublishingRecoverer` + `FixedBackOff(1000ms, 2 retries)` → `<topic>.DLT`.
+- Идемпотентный consumer на стороне state-aggregation: `UNIQUE(event_id)` в `sensor_events`.
+- Сценарии отказов и ручные проверки описаны в `docs/resilience-tests.md`.
+- Автотест DLQ: `state-aggregation-service` → `DlqIntegrationTest`.

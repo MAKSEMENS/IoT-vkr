@@ -58,6 +58,42 @@
 
 Блок 1 сначала — он защищает от регрессий при следующих правках. Блок 2 даёт явный артефакт «Event Sourcing работает». Блок 3 строится поверх 1+2. Блок 4 — последний, чтобы цифры были репрезентативны для финальной системы.
 
+## Что фактически реализовано (на 2026-05-04)
+
+### Блок 1. Тестирование — ✅
+- Юнит-тесты:
+  - `anomaly-detection-service`: `RuleConditionTest`, `RuleEngineTest` (8 кейсов), `AnomalyRulesConfigTest`.
+  - `state-aggregation-service`: `RoomStateAggregatorTest` (5 кейсов, Mockito).
+- Интеграционные на Testcontainers:
+  - `event-ingestion-service`: `IngestionIntegrationTest` (POST → Kafka, валидация).
+  - `state-aggregation-service`: `AggregationIntegrationTest` (Kafka → БД, идемпотентность по `event_id`, обновление полей одной комнаты).
+  - `anomaly-detection-service`: `AnomalyIntegrationTest` (high temperature, smoke detected, normal-no-alert).
+
+### Блок 2. Замыкание Event Sourcing — ✅
+- `state-aggregation-service/admin/`:
+  - `POST /admin/replay` под basic auth (`AdminSecurityConfig`).
+  - `ReplayService`: останавливает листенеры → `TRUNCATE room_states` → пересчёт из таблицы `sensor_events` (event log = БД, **не** Kafka offset reset, иначе ломалась идемпотентность по `event_id`) → запуск листенеров.
+  - Метрики: `replay_invocations_total`, `replay_events_processed_total`, `replay_duration_seconds`, `replay_in_progress`.
+- `ReplayIntegrationTest` (3 кейса) — replay восстанавливает state, basic auth блокирует без/с неверными креденшелами.
+
+### Блок 3. Отказоустойчивость — ✅
+- `state-aggregation` и `anomaly-detection`: `KafkaConsumerConfig` с `DefaultErrorHandler` + `DeadLetterPublishingRecoverer` + `FixedBackOff(1000ms, 2 retries)` → `*.DLT` топик той же партиции.
+- Producer hardening (все три модуля): `enable.idempotence=true`, `acks=all`, `retries=2147483647`, `delivery.timeout.ms=120000`.
+- `*.DLT` топики создаются в `kafka-init` сервисе compose-файла.
+- `DlqIntegrationTest` — подтверждает 3 retry attempts + публикацию в DLT через `@MockBean RoomStateAggregator`, кидающий RuntimeException.
+- `docs/resilience-tests.md` — сценарии падения PG/Kafka/state-aggregation/ingestion с командами проверки.
+
+### Блок 4. Нагрузочное тестирование — ⚠️ инфраструктура готова, прогоны не сделаны
+- `loadtest/k6-constant.js` — постоянная нагрузка `RPS` events/sec (по умолчанию 200, параметризуется через env).
+- `loadtest/k6-burst.js` — warmup 200 → burst 5000 → cooldown 200.
+- `loadtest/README.md` — инструкции запуска через `docker run grafana/k6` и native.
+- `docs/loadtest-results.md` — шаблон, заполняется по факту прогонов.
+
+### Отступления от изначального плана
+
+- **Replay изначально планировался как «truncate + reset offset Kafka».** На практике это конфликтует с идемпотентным consumer'ом (по `event_id`): при повторе Kafka aggregator пропускает уже виденные события и `room_states` не пересчитывается. Реализовано как **пересчёт из таблицы `sensor_events`**, упорядоченный по `recorded_at`. БД и так играет роль event log (см. ADR-002), так что переход с «Kafka как источник» на «БД как источник» для replay естественен.
+- Для запросов `POST /admin/replay` в тестах используется `java.net.http.HttpClient` вместо `TestRestTemplate` из-за известного `HttpRetryException: cannot retry due to server authentication, in streaming mode` при 401-challenge на streaming POST.
+
 ## Что вне этого плана
 
 - ML-детекция аномалий (только пороговые правила).
