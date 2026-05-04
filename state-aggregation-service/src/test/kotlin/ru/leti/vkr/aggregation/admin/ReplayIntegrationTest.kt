@@ -25,8 +25,13 @@ import ru.leti.vkr.aggregation.domain.SensorEventRepository
 import ru.leti.vkr.common.KafkaTopics
 import ru.leti.vkr.common.SensorEvent
 import ru.leti.vkr.common.SensorType
+import java.net.URI
+import java.net.http.HttpClient
+import java.net.http.HttpRequest
+import java.net.http.HttpResponse
 import java.time.Duration
 import java.time.Instant
+import java.util.Base64
 import java.util.UUID
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -111,10 +116,22 @@ class ReplayIntegrationTest {
 
     @Test
     fun `с неверными креденшелами admin replay отдаёт 401`() {
-        val headers = HttpHeaders().apply { contentType = MediaType.APPLICATION_JSON }
-        val response = rest.withBasicAuth("nobody", "nope")
-            .exchange("/admin/replay", HttpMethod.POST, HttpEntity<String>("", headers), String::class.java)
-        assertThat(response.statusCode).isEqualTo(HttpStatus.UNAUTHORIZED)
+        val auth = Base64.getEncoder().encodeToString("nobody:nope".toByteArray())
+        val request = HttpRequest.newBuilder(URI.create("http://localhost:$port/admin/replay"))
+            .POST(HttpRequest.BodyPublishers.noBody())
+            .header("Authorization", "Basic $auth")
+            .build()
+        val response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString())
+        assertThat(response.statusCode()).isEqualTo(401)
+    }
+
+    @Test
+    fun `без креденшелов admin replay отдаёт 401`() {
+        val request = HttpRequest.newBuilder(URI.create("http://localhost:$port/admin/replay"))
+            .POST(HttpRequest.BodyPublishers.noBody())
+            .build()
+        val response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString())
+        assertThat(response.statusCode()).isEqualTo(401)
     }
 
     private fun event(roomId: String, type: SensorType, value: Double) = SensorEvent(

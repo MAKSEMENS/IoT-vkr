@@ -39,9 +39,11 @@ services:
     command:
       - |
         set -e
-        kafka-topics --bootstrap-server kafka:29092 --create --if-not-exists --topic sensor-raw-events --partitions 4 --replication-factor 1
-        kafka-topics --bootstrap-server kafka:29092 --create --if-not-exists --topic room-state-events --partitions 4 --replication-factor 1
-        kafka-topics --bootstrap-server kafka:29092 --create --if-not-exists --topic alert-events      --partitions 4 --replication-factor 1
+        kafka-topics --bootstrap-server kafka:29092 --create --if-not-exists --topic sensor-raw-events     --partitions 4 --replication-factor 1
+        kafka-topics --bootstrap-server kafka:29092 --create --if-not-exists --topic room-state-events     --partitions 4 --replication-factor 1
+        kafka-topics --bootstrap-server kafka:29092 --create --if-not-exists --topic alert-events          --partitions 4 --replication-factor 1
+        kafka-topics --bootstrap-server kafka:29092 --create --if-not-exists --topic sensor-raw-events.DLT --partitions 4 --replication-factor 1
+        kafka-topics --bootstrap-server kafka:29092 --create --if-not-exists --topic room-state-events.DLT --partitions 4 --replication-factor 1
     restart: "no"
 
   postgres:
