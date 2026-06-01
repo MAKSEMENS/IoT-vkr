@@ -1,0 +1,26 @@
+# Технический контур мониторинга (ADR-005).
+# Скрейпит /actuator/prometheus четырёх Spring-сервисов по DNS-именам контейнеров.
+global:
+  scrape_interval: 10s
+  scrape_timeout: 5s
+
+scrape_configs:
+  - job_name: event-ingestion
+    metrics_path: /actuator/prometheus
+    static_configs:
+      - targets: ['event-ingestion:8080']
+
+  - job_name: state-aggregation
+    metrics_path: /actuator/prometheus
+    static_configs:
+      - targets: ['state-aggregation:8082']
+
+  - job_name: anomaly-detection
+    metrics_path: /actuator/prometheus
+    static_configs:
+      - targets: ['anomaly-detection:8083']
+
+  - job_name: query-service
+    metrics_path: /actuator/prometheus
+    static_configs:
+      - targets: ['query-service:8080']

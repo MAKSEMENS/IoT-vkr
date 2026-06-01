@@ -102,3 +102,12 @@ Consumer-ы `state-aggregation` и `anomaly-detection` используют `Def
 - Идемпотентный consumer на стороне state-aggregation: `UNIQUE(event_id)` в `sensor_events`.
 - Сценарии отказов и ручные проверки описаны в `docs/resilience-tests.md`.
 - Автотест DLQ: `state-aggregation-service` → `DlqIntegrationTest`.
+
+## Мониторинг
+
+Двухконтурный, разворачивается вместе со стендом (`monitoring/`, решение — `docs/adr/ADR-005-monitoring-grafana.md`).
+
+- **Технический контур.** Контейнер `prometheus` скрейпит `/actuator/prometheus` всех четырёх сервисов с интервалом 10 с. Видит JVM, HTTP-метрики, состояние Kafka-клиентов, метрики `replay_*`.
+- **Бизнес-контур.** Grafana читает PostgreSQL напрямую (`room_states`, `sensor_events`, `alerts`) — картина помещений не зависит от метрик и переживает рестарт сервисов.
+
+Datasource-ы и дашборды Grafana — provisioned (YAML и JSON смонтированы в контейнер), настройка вручную после `docker compose down -v` не требуется. Дашборды: `service-health` (uptime, JVM, GC, HTTP 5xx, consumer lag), `pipeline` (пропускная способность, задержка p95/p99, replay), `rooms` (состояние помещений и активные алерты).

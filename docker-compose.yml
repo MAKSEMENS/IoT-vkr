@@ -61,6 +61,19 @@ services:
       interval: 5s
       retries: 10
 
+  prometheus:
+    image: prom/prometheus:v2.51.0
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./monitoring/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - prometheus-data:/prometheus
+    depends_on:
+      - event-ingestion
+      - state-aggregation
+      - anomaly-detection
+      - query-service
+
   grafana:
     image: grafana/grafana:10.4.0
     ports:
@@ -68,9 +81,12 @@ services:
     environment:
       GF_SECURITY_ADMIN_PASSWORD: admin
       GF_USERS_ALLOW_SIGN_UP: "false"
+      GF_PATHS_PROVISIONING: /etc/grafana/provisioning
     volumes:
       - grafana-data:/var/lib/grafana
+      - ./monitoring/grafana/provisioning:/etc/grafana/provisioning:ro
     depends_on:
+      - prometheus
       - postgres
 
   # ── Application services ──────────────────────────────────────────────────
@@ -157,3 +173,4 @@ volumes:
   kafka-data:
   postgres-data:
   grafana-data:
+  prometheus-data:

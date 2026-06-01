@@ -72,8 +72,10 @@ vkr/
 ├── anomaly-detection-service/   правила, алерты
 ├── query-service/               REST API на чтение
 ├── iot-simulator/               генератор событий
+├── monitoring/                  Prometheus + provisioning Grafana
+├── loadtest/                    k6-скрипты нагрузочного тестирования
 ├── docs/                        архитектура и ADR
-├── docker-compose.yml           postgres, kafka, grafana, сервисы
+├── docker-compose.yml           postgres, kafka, grafana, prometheus, сервисы
 └── pom.xml                      родительский Maven POM
 ```
 
@@ -91,6 +93,7 @@ docker compose --profile simulator up -d iot-simulator
 | event-ingestion | http://localhost:8081                      |
 | query-service   | http://localhost:8080                      |
 | Grafana         | http://localhost:3000 (admin / admin)      |
+| Prometheus      | http://localhost:9090                      |
 | PostgreSQL      | localhost:5432, `iot_monitoring`, `vkr` / `vkr_secret` |
 | Kafka           | localhost:9092                             |
 
@@ -167,6 +170,8 @@ rules:
 - `/actuator/health` — состояние сервиса
 - `/actuator/prometheus` — метрики
 
+Мониторинг разворачивается вместе со стендом: Prometheus скрейпит все четыре сервиса, Grafana поднимается с provisioned datasource-ами и тремя дашбордами (Service health, Pipeline throughput, Rooms & alerts). Конфигурация — [`monitoring/`](./monitoring/), решение — [`docs/adr/ADR-005-monitoring-grafana.md`](./docs/adr/ADR-005-monitoring-grafana.md).
+
 ## Статус по заданию
 
 | Требование                                          | Статус            |
@@ -183,5 +188,5 @@ rules:
 | DLQ + ретраи у consumer-ов, producer hardening      | готово            |
 | Тестирование отказоустойчивости (DLQ-автотест + сценарии в docs) | готово            |
 | Нагрузочное тестирование (k6-скрипты + шаблон)      | инфра готова, прогоны не сделаны |
+| Мониторинг: Prometheus + provisioned Grafana-дашборды | готово          |
 | Раздел БЖД (для пояснительной записки)              | вне кода          |
-| Grafana-дашборды                                    | вне scope         |
