@@ -72,10 +72,8 @@ vkr/
 ├── anomaly-detection-service/   правила, алерты
 ├── query-service/               REST API на чтение
 ├── iot-simulator/               генератор событий
-├── monitoring/                  Prometheus + provisioning Grafana
-├── loadtest/                    k6-скрипты нагрузочного тестирования
 ├── docs/                        архитектура и ADR
-├── docker-compose.yml           postgres, kafka, grafana, prometheus, сервисы
+├── docker-compose.yml           postgres, kafka, grafana, сервисы
 └── pom.xml                      родительский Maven POM
 ```
 
@@ -93,7 +91,6 @@ docker compose --profile simulator up -d iot-simulator
 | event-ingestion | http://localhost:8081                      |
 | query-service   | http://localhost:8080                      |
 | Grafana         | http://localhost:3000 (admin / admin)      |
-| Prometheus      | http://localhost:9090                      |
 | PostgreSQL      | localhost:5432, `iot_monitoring`, `vkr` / `vkr_secret` |
 | Kafka           | localhost:9092                             |
 
@@ -134,21 +131,15 @@ curl -X POST http://localhost:8081/events \
 
 ## Replay
 
-Полный пересчёт `room_states` из таблицы `sensor_events` (БД играет роль event log) выполняется по запросу:
+Полный пересчёт `room_states` из лога Kafka:
 
 ```bash
-curl -u admin:admin -X POST http://localhost:8082/admin/replay
-# 202 Accepted
-# {"success":true,"message":"Replay завершён: пересчитано N событий по K комнатам", ...}
+# 1. остановить state-aggregation-service
+docker exec vkr-postgres-1 psql -U vkr -d iot_monitoring -c "TRUNCATE room_states;"
+docker exec vkr-kafka-1 kafka-consumer-groups --bootstrap-server kafka:29092 \
+    --group state-aggregation --topic sensor-raw-events --reset-offsets --to-earliest --execute
+# 2. запустить state-aggregation
 ```
-
-`POST /admin/replay` под basic auth (`ADMIN_USER` / `ADMIN_PASSWORD` env-переменные, по умолчанию `admin`/`admin`). Сервис останавливает Kafka-листенеры на время операции, делает `TRUNCATE room_states`, упорядоченно перечитывает `sensor_events` и пересчитывает агрегаты. Метрики: `replay_invocations_total`, `replay_events_processed_total`, `replay_duration_seconds`, `replay_in_progress`.
-
-## Отказоустойчивость и нагрузочные тесты
-
-- DLQ + retry у consumer-ов: при 3 неудачных попытках сообщение уходит в `<topic>.DLT` (FixedBackOff 1с × 2 retry). Producer hardening: `enable.idempotence=true`, `acks=all`, `delivery.timeout.ms=120s`.
-- Сценарии падений (PG/Kafka/state-aggregation/ingestion) — [`docs/resilience-tests.md`](./docs/resilience-tests.md).
-- Нагрузочные тесты на k6 — [`loadtest/`](./loadtest/), результаты — [`docs/loadtest-results.md`](./docs/loadtest-results.md).
 
 ## Конфигурация правил
 
@@ -170,23 +161,20 @@ rules:
 - `/actuator/health` — состояние сервиса
 - `/actuator/prometheus` — метрики
 
-Мониторинг разворачивается вместе со стендом: Prometheus скрейпит все четыре сервиса, Grafana поднимается с provisioned datasource-ами и тремя дашбордами (Service health, Pipeline throughput, Rooms & alerts). Конфигурация — [`monitoring/`](./monitoring/), решение — [`docs/adr/ADR-005-monitoring-grafana.md`](./docs/adr/ADR-005-monitoring-grafana.md).
-
 ## Статус по заданию
 
-| Требование                                          | Статус            |
-|-----------------------------------------------------|-------------------|
-| Kotlin (JVM 17)                                     | готово            |
-| Apache Kafka 3.x, at-least-once                     | готово            |
-| Партиционирование по `room_id`                      | готово            |
-| Event Sourcing + replay                             | готово            |
-| Конфигурируемые правила в YAML                      | готово            |
-| Хранение в PostgreSQL                               | готово            |
-| REST API (rooms, history, alerts)                   | готово            |
-| Контейнеризация Docker Compose                      | готово            |
-| Юнит / интеграционные тесты (Testcontainers)        | готово            |
-| DLQ + ретраи у consumer-ов, producer hardening      | готово            |
-| Тестирование отказоустойчивости (DLQ-автотест + сценарии в docs) | готово            |
-| Нагрузочное тестирование (k6-скрипты + шаблон)      | инфра готова, прогоны не сделаны |
-| Мониторинг: Prometheus + provisioned Grafana-дашборды | готово          |
-| Раздел БЖД (для пояснительной записки)              | вне кода          |
+| Требование                                          | Статус        |
+|-----------------------------------------------------|---------------|
+| Kotlin (JVM 17)                                     | готово        |
+| Apache Kafka 3.x, at-least-once                     | готово        |
+| Партиционирование по `room_id`                      | готово        |
+| Event Sourcing + replay                             | готово        |
+| Конфигурируемые правила в YAML                      | готово        |
+| Хранение в PostgreSQL                               | готово        |
+| REST API (rooms, history, alerts)                   | готово        |
+| Контейнеризация Docker Compose                      | готово        |
+| Юнит / интеграционные тесты (Testcontainers)        | готово      |
+| Нагрузочное тестирование                            | готово      |
+| Тестирование отказоустойчивости                     | в работе      |
+| Раздел БЖД (для пояснительной записки)              | вне кода      |
+| Grafana-дашборды                                    | скоро в работе    |
